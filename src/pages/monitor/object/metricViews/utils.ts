@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Nightingale Team
+ * Copyright 2022 ChainEye Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,15 @@
 import _ from 'lodash';
 import { IMatch } from '../types';
 
-
 export function getFiltersStr(filters: IMatch['filters']) {
-  const arr = _.compact(_.map(filters, (item) => {
-    if (item.label && item.value) {
-      return `${item.label}${item.oper}"${item.value}"`;
-    }
-    return '';
-  }));
+  const arr = _.compact(
+    _.map(filters, (item) => {
+      if (item.label && item.value) {
+        return `${item.label}${item.oper}"${item.value}"`;
+      }
+      return '';
+    }),
+  );
   return _.join(_.compact(arr), ',');
 }
 

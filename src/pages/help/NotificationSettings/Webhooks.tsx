@@ -190,7 +190,7 @@ export default function Webhooks() {
                 ns='notificationSettings'
                 i18nKey='webhooks.help'
                 components={{
-                  a: <a href='https://console.flashcat.cloud/?from=n9e' target='_blank' />,
+                  a: <a href='https://console.shengjian.net/?from=n9e' target='_blank' />,
                   br: <br />,
                 }}
               />

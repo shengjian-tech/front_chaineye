@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Nightingale Team
+ * Copyright 2022 ChainEye Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,10 +34,9 @@ import './index.less';
 export default function Chart() {
   const { t } = useTranslation('shareChart');
   const { datasourceCateOptions } = useContext(CommonStateContext);
-  const { ids } =
-    useParams<{
-      ids: string;
-    }>();
+  const { ids } = useParams<{
+    ids: string;
+  }>();
   const [chartData, setChartData] = useState<
     Array<{
       ref: any;

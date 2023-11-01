@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Nightingale Team
+ * Copyright 2022 ChainEye Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,7 @@
  * limitations under the License.
  *
  */
-export const mapEnv = (
-  MAP: { [propName: string]: string | number },
-  env: string | undefined,
-) => {
+export const mapEnv = (MAP: { [propName: string]: string | number }, env: string | undefined) => {
   switch (env) {
     case 'dev':
       return MAP.DEV;

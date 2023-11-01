@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Nightingale Team
+ * Copyright 2022 ChainEye Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -127,7 +127,7 @@ export default function Login() {
       <div className='login-panel'>
         <div className='login-main  integration'>
           <div className='login-title'>
-            <img src={siteInfo?.login_page_logo_url || '/image/logo-dark.svg'} style={{ width: '120px' }} />
+            <img src={siteInfo?.login_page_logo_url || '/image/logo.png'} style={{ width: '120px' }} />
           </div>
           <Form form={form} layout='vertical' requiredMark={true}>
             <Form.Item

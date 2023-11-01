@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Nightingale Team
+ * Copyright 2022 ChainEye Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -123,8 +123,8 @@ const PageLayout: React.FC<IPageLayoutProps> = ({ icon, title, rightArea, introI
                   {/* 整合版本关闭文档链接 */}
                   {import.meta.env.VITE_IS_ENT !== 'true' && (
                     <Space style={{ marginRight: 16 }}>
-                      <div style={{ marginRight: 32, position: 'relative' }}>
-                        <a target='_blank' href={siteInfo?.document_url || 'https://flashcat.cloud/docs/'}>
+                      {/* <div style={{ marginRight: 32, position: 'relative' }}>
+                        <a target='_blank' href={siteInfo?.document_url || 'https://shengjian.net/docs/'}>
                           {t('docs')}
                         </a>
                         <Icon
@@ -140,7 +140,7 @@ const PageLayout: React.FC<IPageLayoutProps> = ({ icon, title, rightArea, introI
                             );
                           }}
                         />
-                      </div>
+                      </div> */}
                       {profile?.admin && (
                         <AdvancedWrap var='VITE_IS_PRO,VITE_IS_ENT'>
                           <Link to='/audits'>{t('audits:title')}</Link>
@@ -156,25 +156,25 @@ const PageLayout: React.FC<IPageLayoutProps> = ({ icon, title, rightArea, introI
                   </AdvancedWrap>
 
                   <Dropdown
-                overlay={
-                  <Menu
-                    onSelect={({ key }) => {
-                      i18n.changeLanguage(key);
-                      setCurLanguage(i18nMap[key]);
-                      localStorage.setItem('language', key);
-                    }}
-                    selectable
+                    overlay={
+                      <Menu
+                        onSelect={({ key }) => {
+                          i18n.changeLanguage(key);
+                          setCurLanguage(i18nMap[key]);
+                          localStorage.setItem('language', key);
+                        }}
+                        selectable
+                      >
+                        {Object.keys(i18nMap).map((el) => {
+                          return <Menu.Item key={el}>{i18nMap[el]}</Menu.Item>;
+                        })}
+                      </Menu>
+                    }
                   >
-                    {Object.keys(i18nMap).map((el) => {
-                      return <Menu.Item key={el}>{i18nMap[el]}</Menu.Item>;
-                    })}
-                  </Menu>
-                }
-              >
-                <a style={{ marginRight: 20 }} onClick={(e) => e.preventDefault()} id='i18n-btn'>
-                  {curLanguage}
-                </a>
-              </Dropdown>
+                    <a style={{ marginRight: 20 }} onClick={(e) => e.preventDefault()} id='i18n-btn'>
+                      {curLanguage}
+                    </a>
+                  </Dropdown>
                   <Dropdown overlay={menu} trigger={['click']}>
                     <span className='avator'>
                       <img src={profile.portrait || '/image/avatar1.png'} alt='' />

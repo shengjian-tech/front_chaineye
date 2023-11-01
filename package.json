@@ -39,6 +39,7 @@
     "d3-hexbin": "^0.2.2",
     "diff": "^4.0.2",
     "dompurify": "^2.4.4",
+    "echarts": "^5.4.3",
     "i18next": "20.3.2",
     "jsencrypt": "^3.3.2",
     "json-2-csv": "^3.18.0",

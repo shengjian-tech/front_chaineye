@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Nightingale Team
+ * Copyright 2022 ChainEye Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +22,7 @@ interface IBaseSearchInputProps extends InputProps {
   onSearch?: (value: string) => unknown;
 }
 
-const BaseSearchInput: React.FC<IBaseSearchInputProps> = ({
-  onSearch,
-  ...props
-}) => {
+const BaseSearchInput: React.FC<IBaseSearchInputProps> = ({ onSearch, ...props }) => {
   const { t } = useTranslation();
   const [value, setValue] = useState<string>('');
   return (

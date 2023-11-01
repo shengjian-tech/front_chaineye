@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Nightingale Team
+ * Copyright 2022 ChainEye Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,10 +25,7 @@ export const getIndicatorList = function (data: object) {
   });
 };
 
-export const editIndicator = function (
-  id: number,
-  data: { description?: string | undefined; metric?: string | undefined },
-) {
+export const editIndicator = function (id: number, data: { description?: string | undefined; metric?: string | undefined }) {
   return request(`/api/n9e/metric-description/${id}`, {
     method: RequestMethod.Put,
     data: data,

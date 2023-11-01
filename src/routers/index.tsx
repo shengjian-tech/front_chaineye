@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Nightingale Team
+ * Copyright 2022 ChainEye Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,6 +67,7 @@ import NotificationSettings from '@/pages/help/NotificationSettings';
 import MigrateDashboards from '@/pages/help/migrate';
 import IBEX from '@/pages/help/NotificationSettings/IBEX';
 import VariableConfigs from '@/pages/variableConfigs';
+import Brower from '@/pages/brower/index';
 import { dynamicPackages, Entry } from '@/utils';
 // @ts-ignore
 import { Jobs as StrategyBrain } from 'plus:/datasource/anomaly';
@@ -203,6 +204,7 @@ export default function Content() {
         <Route exact path='/trace/dependencies' component={TraceDependencies} />
 
         <Route exact path='/permissions' component={Permissions} />
+        <Route exact path='/brower' component={Brower} />
 
         {lazyRoutes.map((route, i) => (
           <RouteWithSubRoutes key={i} {...route} />
@@ -211,7 +213,8 @@ export default function Content() {
           <RouteWithSubRoutes key={i} {...route} />
         ))}
         <Route path='/' exact>
-          <Redirect to={siteInfo?.home_page_url || '/metric/explorer'} />
+          {/* <Redirect to={siteInfo?.home_page_url || '/metric/explorer'} /> */}
+          <Redirect to={siteInfo?.home_page_url || '/brower'} />
         </Route>
         <Route path='/403' component={Page403} />
         <Route path='/404' component={NotFound} />

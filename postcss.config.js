@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Nightingale Team
+ * Copyright 2022 ChainEye Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,9 @@
  *
  */
 module.exports = (ctx) => ({
-    parser: ctx.parser ? 'sugarss' : false,
-    map: ctx.env === 'development' ? ctx.map : false,
-    plugins: {
-      'postcss-nested': {}
-    }
-  })
+  parser: ctx.parser ? 'sugarss' : false,
+  map: ctx.env === 'development' ? ctx.map : false,
+  plugins: {
+    'postcss-nested': {},
+  },
+});

@@ -10,7 +10,7 @@ interface Props {
 //  <Code><span>123</span></Code>
 //  <Code>
 //    <pre>curl -X POST \</pre>
-//    <pre>http://yunyan.flashcat.cloud/v1/event/push \</pre>
+//    <pre>http://yunyan.shengjian.net/v1/event/push \</pre>
 //  </Code>
 export default function Code(props: Props) {
   const { children } = props;

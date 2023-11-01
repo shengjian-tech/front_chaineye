@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Nightingale Team
+ * Copyright 2022 ChainEye Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -318,14 +318,27 @@ const SideMenu: FC = () => {
             return item.children && item.children.length > 0;
           },
         );
+        newMenus.unshift({
+          key: 'brower',
+          icon: <IconFont type='icon-Menu_Infrastructure' />,
+          activeIcon: <Icon component={menuIcon.Infrastructure as any} />,
+          label: t('首页'),
+          children: [
+            {
+              key: '/brower',
+              label: t('首页'),
+            },
+          ],
+        });
         setMenus(newMenus);
+        console.log(menus, '**menus**');
       });
     }
   }, [profile?.roles, i18n.language]);
 
-  let imgURL = siteInfo?.menu_big_logo_url || '/image/logo-l.svg';
+  let imgURL = siteInfo?.menu_big_logo_url || '/image/logo.png';
   if (collapsed === '1') {
-    imgURL = siteInfo?.menu_small_logo_url || '/image/logo.svg';
+    imgURL = siteInfo?.menu_small_logo_url || '/image/logo.png';
   }
 
   return (

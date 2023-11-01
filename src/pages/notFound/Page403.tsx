@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Nightingale Team
+ * Copyright 2022 ChainEye Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +22,7 @@ const NotFound: React.FC = () => {
   const history = useHistory();
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-      <Result
-        title='403'
-        subTitle='你没有权限访问该页面, 请联系管理员!'
-      />
+      <Result title='403' subTitle='你没有权限访问该页面, 请联系管理员!' />
     </div>
   );
 };

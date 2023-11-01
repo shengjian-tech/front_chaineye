@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Nightingale Team
+ * Copyright 2022 ChainEye Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,9 @@ function getApi(path: string) {
   const prefix = '/api/n9e/busi-group';
   return (busiGroup: string | number) => {
     return `${prefix}/${busiGroup}${path}`;
-  }
+  };
 }
-  
+
 const api = {
   tasktpls: getApi('/task-tpls'),
   tasktpl: getApi('/task-tpl'),
@@ -30,4 +30,3 @@ const api = {
 };
 
 export default api;
-  

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Nightingale Team
+ * Copyright 2022 ChainEye Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -149,9 +149,9 @@ function App() {
             }
           }
         }
-        document.title = siteInfo?.page_title || 'Nightingale';
+        document.title = siteInfo?.page_title || 'ChainEye';
         if (iconLink) {
-          iconLink.href = siteInfo?.menu_small_logo_url || '/image/favicon.svg';
+          iconLink.href = siteInfo?.menu_small_logo_url || '/image/favicon.ico';
         }
         // 非匿名访问，需要初始化一些公共数据
         if (!anonymous) {

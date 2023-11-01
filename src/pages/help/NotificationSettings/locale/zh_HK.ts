@@ -17,7 +17,7 @@ const zh_HK = {
       近期快貓團隊提供的事件OnCall產品FlashDuty也開始公測了，歡迎體驗，把各個監控系統的告警事件統一推給FlashDuty，享受告警聚合降噪、排班、認領、升級、協同處理一站式體驗。
       <br />
       <br />
-      <a href='https://console.flashcat.cloud/?from=n9e' target='_blank'>
+      <a href='https://console.shengjian.net/?from=n9e' target='_blank'>
       免費體驗地址
       </a>
     `,
