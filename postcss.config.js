@@ -19,5 +19,7 @@ module.exports = (ctx) => ({
   map: ctx.env === 'development' ? ctx.map : false,
   plugins: {
     'postcss-nested': {},
+    tailwindcss: {},
+    autoprefixer: {},
   },
 });

@@ -18,12 +18,13 @@ import React, { ReactNode, useContext, useState, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import Icon, { RollbackOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import { Menu, Dropdown, Space } from 'antd';
+import { Menu, Dropdown, Space, Drawer } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { Logout } from '@/services/login';
 import AdvancedWrap, { License } from '@/components/AdvancedWrap';
 import { CommonStateContext } from '@/App';
 import Version from './Version';
+import SideMenuColorSetting from './SideMenuColorSetting';
 import './index.less';
 import './locale';
 import { AccessTokenKey } from '@/utils/constant';
@@ -52,6 +53,7 @@ const PageLayout: React.FC<IPageLayoutProps> = ({ icon, title, rightArea, introI
   const { profile, siteInfo } = useContext(CommonStateContext);
   const embed = localStorage.getItem('embed') === '1' && window.self !== window.top;
   const [curLanguage, setCurLanguage] = useState(i18nMap[i18n.language] || '中文');
+  const [themeVisible, setThemeVisible] = useState(false);
   useEffect(() => {
     setCurLanguage(i18nMap[i18n.language] || '中文');
   }, [i18n.language]);
@@ -64,6 +66,13 @@ const PageLayout: React.FC<IPageLayoutProps> = ({ icon, title, rightArea, introI
         }}
       >
         {t('profile')}
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          setThemeVisible(true);
+        }}
+      >
+        {t('themeSetting')}
       </Menu.Item>
       <Menu.Item
         onClick={() => {
@@ -177,7 +186,7 @@ const PageLayout: React.FC<IPageLayoutProps> = ({ icon, title, rightArea, introI
                     </a>
                   </Dropdown>
                   <Dropdown overlay={menu} trigger={['click']}>
-                    <span className='avator'>
+                    <span className='avator' style={{ cursor: 'pointer' }}>
                       <img src={profile.portrait || '/image/avatar1.png'} alt='' />
                       <span className='display-name'>{profile.nickname || profile.username}</span>
                       <DownOutlined />
@@ -190,6 +199,23 @@ const PageLayout: React.FC<IPageLayoutProps> = ({ icon, title, rightArea, introI
         </>
       )}
       {children && children}
+      <Drawer
+        closable={false}
+        visible={themeVisible}
+        onClose={() => {
+          setThemeVisible(false);
+        }}
+      >
+        <div>
+          <div>
+            <div className='text-lg font-semibold dark:text-slate-50 text-l1'>主题配置</div>
+            <div className='text-sm text-hint mt-1'>配置仅对当前用户生效</div>
+          </div>
+          <div className='m-2'>
+            <SideMenuColorSetting />
+          </div>
+        </div>
+      </Drawer>
     </div>
   );
 };
