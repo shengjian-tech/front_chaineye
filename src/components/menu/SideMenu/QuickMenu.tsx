@@ -61,8 +61,8 @@ export default forwardRef(function QuickMenu(props: Props, ref) {
   const searchInputRef = React.useRef<HTMLInputElement>(null);
   const menusRef = React.useRef<HTMLDivElement>(null);
   const isMac = /Mac/i.test(navigator.userAgent) || navigator.platform.includes('Mac');
-  const filteredMenus = _.filter(menus, (item) => {
-    const { parent: { label: parentName } = {} } = item;
+  const filteredMenus = _.filter(menus, (item: any) => {
+    const parentName = item?.parent?.label;
     return !search || match(item.label, search) || (parentName && match(parentName, search));
   });
 
@@ -77,12 +77,20 @@ export default forwardRef(function QuickMenu(props: Props, ref) {
     });
 
     setMenus(sortQuickMenuItems(newMenus));
-  }, [_.join(_.map(menuList, 'key'))]);
+  }, [
+    _.join(
+      _.map(menuList, (item) => {
+        return _.concat([item.key, _.map(item.children, (child) => child.key)]);
+      }),
+    ),
+  ]);
 
   useEffect(() => {
-    !open && setMenus(sortQuickMenuItems(menus));
     if (open) {
-      searchInputRef.current?.focus();
+      // 500ms 后 focus，避免无法 focus 的问题，尚不清楚为什么
+      setTimeout(() => {
+        searchInputRef.current?.focus();
+      }, 500);
     } else {
       setSearch('');
       setActiveIndex(0);
@@ -136,7 +144,7 @@ export default forwardRef(function QuickMenu(props: Props, ref) {
     };
     document.addEventListener('keydown', down);
     return () => document.removeEventListener('keydown', down);
-  }, [activeIndex, menus, open]);
+  }, [activeIndex, menus, open, _.join(_.map(filteredMenus, 'key'))]);
 
   useImperativeHandle(ref, () => ({
     open: () => setOpen(true),
@@ -146,7 +154,6 @@ export default forwardRef(function QuickMenu(props: Props, ref) {
   return (
     <Modal
       className='quick-menu-modal'
-      destroyOnClose
       visible={open}
       onCancel={() => {
         setOpen(false);

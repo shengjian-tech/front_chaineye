@@ -67,13 +67,15 @@ const PageLayout: React.FC<IPageLayoutProps> = ({ icon, title, rightArea, introI
       >
         {t('profile')}
       </Menu.Item>
-      <Menu.Item
-        onClick={() => {
-          setThemeVisible(true);
-        }}
-      >
-        {t('themeSetting')}
-      </Menu.Item>
+      {import.meta.env.VITE_IS_ENT !== 'true' && (
+        <Menu.Item
+          onClick={() => {
+            setThemeVisible(true);
+          }}
+        >
+          {t('themeSetting')}
+        </Menu.Item>
+      )}
       <Menu.Item
         onClick={() => {
           Logout().then(() => {
@@ -98,7 +100,7 @@ const PageLayout: React.FC<IPageLayoutProps> = ({ icon, title, rightArea, introI
             <div className={'page-top-header'}>{customArea}</div>
           ) : (
             <div className={'page-top-header'}>
-              <div className={'page-header-content'}>
+              <div className={`page-header-content ${import.meta.env.VITE_IS_ENT !== 'true' ? 'n9e-page-header-content' : ''}`}>
                 <div className={'page-header-title'}>
                   {showBack && (
                     <RollbackOutlined
