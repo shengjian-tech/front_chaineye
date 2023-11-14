@@ -55,6 +55,7 @@ export default function List(props: ListProps) {
   const [selectedRows, setSelectedRows] = useState<AlertRuleType<any>[]>([]);
   const [data, setData] = useState<AlertRuleType<any>[]>([]);
   const [loading, setLoading] = useState(false);
+  const prefixUrl = import.meta.env.VITE_PREFIX;
   const columns: ColumnType<AlertRuleType<any>>[] = [
     {
       title: t('common:datasource.type'),
@@ -101,7 +102,7 @@ export default function List(props: ListProps) {
               <Link
                 className='table-text'
                 to={{
-                  pathname: `/alert-rules/edit/${record.id}`,
+                  pathname: `${prefixUrl}/alert-rules/edit/${record.id}`,
                 }}
               >
                 {data}
@@ -212,7 +213,7 @@ export default function List(props: ListProps) {
             <Link
               className='table-operator-area-normal'
               to={{
-                pathname: `/alert-rules/edit/${record.id}?mode=clone`,
+                pathname: `${prefixUrl}/alert-rules/edit/${record.id}?mode=clone`,
               }}
               target='_blank'
             >
@@ -244,7 +245,7 @@ export default function List(props: ListProps) {
             </Button>
             {record.prod === 'anomaly' && (
               <div>
-                <Link to={{ pathname: `/alert-rules/brain/${record.id}` }}>{t('brain_result_btn')}</Link>
+                <Link to={{ pathname: `${prefixUrl}/alert-rules/brain/${record.id}` }}>{t('brain_result_btn')}</Link>
               </div>
             )}
           </Space>
@@ -368,7 +369,7 @@ export default function List(props: ListProps) {
             <Button
               type='primary'
               onClick={() => {
-                history.push(`/alert-rules/add/${bgid}`);
+                history.push(`${prefixUrl}/alert-rules/add/${bgid}`);
               }}
               className='strategy-table-search-right-create'
             >

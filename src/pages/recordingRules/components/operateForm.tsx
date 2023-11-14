@@ -39,6 +39,7 @@ const operateForm: React.FC<Props> = ({ type, detail = {} }) => {
   const strategyId = useMemo(() => {
     return params.id;
   }, [params]);
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   // 渲染标签
   function tagRender(content) {
@@ -98,7 +99,7 @@ const operateForm: React.FC<Props> = ({ type, detail = {} }) => {
           message.error(res.error);
         } else {
           message.success(t('common:success.edit'));
-          history.push('/recording-rules');
+          history.push(prefixUrl + '/recording-rules');
         }
       } else {
         reqBody = [d];
@@ -110,7 +111,7 @@ const operateForm: React.FC<Props> = ({ type, detail = {} }) => {
         });
         if (!errorNum) {
           message.success(`${type === 2 ? t('common:success.clone') : t('common:success.add')}`);
-          history.push('/recording-rules');
+          history.push(prefixUrl + '/recording-rules');
         } else {
           message.error(t(msg));
         }
@@ -207,7 +208,7 @@ const operateForm: React.FC<Props> = ({ type, detail = {} }) => {
                     onOk: () => {
                       deleteRecordingRule([detail.id], curBusiId).then(() => {
                         message.success(t('common:success.delete'));
-                        history.push('/recording-rules');
+                        history.push(prefixUrl + '/recording-rules');
                       });
                     },
 
@@ -221,7 +222,7 @@ const operateForm: React.FC<Props> = ({ type, detail = {} }) => {
 
             <Button
               onClick={() => {
-                history.push('/recording-rules');
+                history.push(prefixUrl + '/recording-rules');
               }}
             >
               {t('common:btn.cancel')}

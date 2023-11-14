@@ -205,6 +205,10 @@ export const getMenuList = (t) => {
   return menuList;
 };
 
+const prefixUrl = import.meta.env.VITE_PREFIX;
+const isShowMenu = import.meta.env.VITE_SHOWMENU;
+console.log(isShowMenu, '***isShowMenu**');
+
 const SideMenu = () => {
   const { t, i18n } = useTranslation('menu');
   const { profile, isPlus, sideMenuBgMode } = useContext(CommonStateContext);
@@ -227,23 +231,29 @@ const SideMenu = () => {
     [menuList],
   );
   const hideSideMenu = useMemo(() => {
+    // 可以自己配置是否显示左侧菜单
+    if (isShowMenu && isShowMenu == 'false') {
+      console.log('***----isShowMenu-----**');
+      return true;
+    }
     if (
-      location.pathname === '/login' ||
-      location.pathname.startsWith('/chart/') ||
-      location.pathname.startsWith('/dashboards/share/') ||
-      location.pathname === '/callback' ||
-      location.pathname.indexOf('/polaris/screen') === 0
+      location.pathname === prefixUrl + '/login' ||
+      location.pathname.startsWith(prefixUrl + '/chart/') ||
+      location.pathname.startsWith(prefixUrl + '/dashboards/share/') ||
+      location.pathname === prefixUrl + '/callback' ||
+      location.pathname.indexOf(prefixUrl + '/polaris/screen') === 0
     ) {
       return true;
     }
     // 大盘全屏模式下也需要隐藏左侧菜单
-    if (location.pathname.indexOf('/dashboard') === 0) {
+    if (location.pathname.indexOf(prefixUrl + '/dashboard') === 0) {
       const query = querystring.parse(location.search);
       if (query?.viewMode === 'fullscreen') {
         return true;
       }
       return false;
     }
+
     return false;
   }, [location.pathname, location.search]);
 
@@ -272,7 +282,7 @@ const SideMenu = () => {
     let finalPath = ['', ''];
     menuPaths.forEach((path) => {
       const pathArr = path?.split('|');
-      const realPath = pathArr ? pathArr[pathArr.length - 1] : '';
+      const realPath = pathArr ? prefixUrl + pathArr[pathArr.length - 1] : '';
       const curPathname = location.pathname;
 
       if (pathArr && curPathname.startsWith(realPath) && realPath.length > finalPath[finalPath.length - 1].length) {
@@ -318,7 +328,7 @@ const SideMenu = () => {
                 selectedKeys={selectedKeys}
                 onClick={(key) => {
                   if (key.startsWith('/')) {
-                    history.push(key);
+                    history.push(prefixUrl + key);
                   }
                 }}
                 sideMenuBgColor={sideMenuBgColor}

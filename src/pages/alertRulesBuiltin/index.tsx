@@ -87,6 +87,8 @@ export default function index() {
     sessionStorage.setItem('builtin-search', search);
   };
 
+  const prefixUrl = import.meta.env.VITE_PREFIX;
+
   useEffect(() => {
     fetchData((dat) => {
       const cateStr = query.cate ? query.cate : localStorage.getItem('builtin-cate');
@@ -132,7 +134,7 @@ export default function index() {
                   onClick={() => {
                     setActive(item);
                     history.replace({
-                      pathname: '/alert-rules-built-in',
+                      pathname: prefixUrl + '/alert-rules-built-in',
                       search: `?cate=${item.name}`,
                     });
                     localStorage.setItem('builtin-cate', item.name);
@@ -282,7 +284,7 @@ export default function index() {
                             <Space>
                               <Link
                                 to={{
-                                  pathname: '/alert-rules-built-in/detail',
+                                  pathname: prefixUrl + '/alert-rules-built-in/detail',
                                   search: `?cate=${cateValue}&name=${nameValue}`,
                                 }}
                               >

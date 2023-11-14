@@ -45,6 +45,7 @@ const PageTable: React.FC<Props> = ({ bgid }) => {
   const [currentStrategyData, setCurrentStrategyData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [datasourceIds, setDatasourceIds] = useState<number[]>();
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   useEffect(() => {
     getRecordingRules();
@@ -83,11 +84,11 @@ const PageTable: React.FC<Props> = ({ bgid }) => {
     setCurrentStrategyData(res || []);
   };
   const goToAddWarningStrategy = () => {
-    history.push(`/recording-rules/add/${curBusiId}`);
+    history.push(`${prefixUrl}/recording-rules/add/${curBusiId}`);
   };
 
   const handleClickEdit = (id, isClone = false) => {
-    history.push(`/recording-rules/edit/${id}${isClone ? '?mode=clone' : ''}`);
+    history.push(`${prefixUrl}/recording-rules/edit/${id}${isClone ? '?mode=clone' : ''}`);
   };
 
   const refreshList = () => {

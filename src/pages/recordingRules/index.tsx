@@ -21,6 +21,7 @@ const Strategy: React.FC = () => {
   const history = useHistory();
   const id = urlQuery.get('id');
   const bgid = id ? Number(id) : commonState.curBusiId;
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   return (
     <PageLayout title={t('title')} icon={<SettingOutlined />}>
@@ -28,7 +29,7 @@ const Strategy: React.FC = () => {
         <BusinessGroup
           curBusiId={bgid}
           setCurBusiId={(id) => {
-            history.push(`/recording-rules?id=${id}`);
+            history.push(`${prefixUrl}/recording-rules?id=${id}`);
             commonState.setCurBusiId(id);
           }}
         />

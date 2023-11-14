@@ -13,6 +13,7 @@ export default function index() {
   const query = queryString.parse(search);
   const [loading, setLoading] = useState<boolean>(true);
   const [initialValues, setInitialValues] = useState<any>(null);
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   useEffect(() => {
     getDashboardCates()
@@ -32,10 +33,10 @@ export default function index() {
 
   if (loading) return null;
   if (initialValues) {
-    return <Detail isPreview isBuiltin gobackPath='/dashboards-built-in' builtinParams={initialValues} />;
+    return <Detail isPreview isBuiltin gobackPath={prefixUrl + '/dashboards-built-in'} builtinParams={initialValues} />;
   }
   return (
-    <PageLayout title={t('title')} showBack backPath='/dashboards-built-in'>
+    <PageLayout title={t('title')} showBack backPath={prefixUrl + '/dashboards-built-in'}>
       <div>{t('detail_no_result')}</div>
     </PageLayout>
   );

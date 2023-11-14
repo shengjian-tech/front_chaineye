@@ -52,6 +52,8 @@ const index = (_props: any) => {
   const [days, setDays] = useState(7);
   const { curBusiId, setCurBusiId } = useContext(CommonStateContext);
   const { tableProps } = useAntdTable((options) => getTableData(options, curBusiId, query, mine, days), { refreshDeps: [curBusiId, query, mine, days] });
+  const prefixUrl = import.meta.env.VITE_PREFIX;
+
   const columns: ColumnProps<DataItem>[] = [
     {
       title: 'ID',
@@ -63,7 +65,7 @@ const index = (_props: any) => {
       dataIndex: 'title',
       width: 200,
       render: (text, record) => {
-        return <Link to={{ pathname: `/job-tasks/${record.id}/result` }}>{text}</Link>;
+        return <Link to={{ pathname: prefixUrl + `/job-tasks/${record.id}/result` }}>{text}</Link>;
       },
     },
     {
@@ -72,9 +74,9 @@ const index = (_props: any) => {
       render: (_text, record) => {
         return (
           <span>
-            <Link to={{ pathname: '/job-tasks/add', search: `task=${record.id}` }}>{t('task.clone')}</Link>
+            <Link to={{ pathname: prefixUrl + '/job-tasks/add', search: `task=${record.id}` }}>{t('task.clone')}</Link>
             <Divider type='vertical' />
-            <Link to={{ pathname: `/job-tasks/${record.id}/detail` }}>{t('task.meta')}</Link>
+            <Link to={{ pathname: prefixUrl + `/job-tasks/${record.id}/detail` }}>{t('task.meta')}</Link>
           </span>
         );
       },
@@ -147,7 +149,7 @@ const index = (_props: any) => {
                 <Button
                   type='primary'
                   onClick={() => {
-                    history.push('/job-tasks/add');
+                    history.push(prefixUrl + '/job-tasks/add');
                   }}
                 >
                   {t('task.temporary.create')}

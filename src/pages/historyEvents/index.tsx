@@ -52,6 +52,7 @@ const Event: React.FC = () => {
   const query = queryString.parse(useLocation().search);
   const { groupedDatasourceList, busiGroups, feats, datasourceList } = useContext(CommonStateContext);
   const [refreshFlag, setRefreshFlag] = useState<string>(_.uniqueId('refresh_'));
+  const prefixUrl = import.meta.env.VITE_PREFIX;
   const [filter, setFilter] = useState<{
     hours: number;
     datasourceIds: number[];
@@ -110,7 +111,7 @@ const Event: React.FC = () => {
             <div>
               <Link
                 to={{
-                  pathname: `/alert-his-events/${id}`,
+                  pathname: `${prefixUrl}/alert-his-events/${id}`,
                 }}
                 target='_blank'
               >

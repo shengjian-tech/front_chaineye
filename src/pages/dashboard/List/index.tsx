@@ -47,6 +47,7 @@ export default function index() {
   const [refreshKey, setRefreshKey] = useState(_.uniqueId('refreshKey_'));
   const [searchVal, setsearchVal] = useState<string>('');
   const pagination = usePagination({ PAGESIZE_KEY: 'dashboard-pagesize' });
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   useEffect(() => {
     if (busiId) {
@@ -95,7 +96,7 @@ export default function index() {
                       <Link
                         className='table-active-text'
                         to={{
-                          pathname: `/dashboards/${record.ident || record.id}`,
+                          pathname: `${prefixUrl}/dashboards/${record.ident || record.id}`,
                         }}
                       >
                         {text}
@@ -170,7 +171,7 @@ export default function index() {
                           <Link
                             target='_blank'
                             to={{
-                              pathname: `/dashboards/share/${record.id}`,
+                              pathname: `${prefixUrl}/dashboards/share/${record.id}`,
                             }}
                             style={{ marginLeft: 10 }}
                           >

@@ -32,9 +32,10 @@ export default function Profile() {
   const { t } = useTranslation('account');
   const { tab } = useParams<Param>();
   const history = useHistory();
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   const handleChange = (tab) => {
-    history.push('/account/profile/' + tab);
+    history.push(prefixUrl + '/account/profile/' + tab);
   };
 
   return (

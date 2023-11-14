@@ -29,6 +29,7 @@ export default function Edit() {
   const [values, setValues] = useState<any>({});
   const { search } = useLocation();
   const { mode } = queryString.parse(search);
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   useEffect(() => {
     if (alertRuleId) {
@@ -44,7 +45,7 @@ export default function Edit() {
   }, [alertRuleId]);
 
   return (
-    <PageLayout title={t('title')} showBack backPath='/alert-rules'>
+    <PageLayout title={t('title')} showBack backPath={prefixUrl + '/alert-rules'}>
       <Form type={mode === 'clone' ? 2 : 1} initialValues={values} />
     </PageLayout>
   );

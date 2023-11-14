@@ -65,6 +65,7 @@ export default forwardRef(function QuickMenu(props: Props, ref) {
     const parentName = item?.parent?.label;
     return !search || match(item.label, search) || (parentName && match(parentName, search));
   });
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   useEffect(() => {
     const newMenus: QuickMenuItem[] = [];
@@ -200,7 +201,7 @@ export default forwardRef(function QuickMenu(props: Props, ref) {
                   className={cn('flex items-center p-2 cursor-pointer rounded', activeIndex === idx ? 'bg-fc-200' : '')}
                   onClick={() => {
                     setOpen(false);
-                    history.push(item.key);
+                    history.push(prefixUrl + item.key);
                     saveSelectedCount(item.key);
                   }}
                   onMouseOver={() => {

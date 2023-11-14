@@ -20,6 +20,7 @@ export default function PreviewMutedEvents(props: Props) {
   const [visible, setVisible] = useState(false);
   const [data, setData] = useState<any[]>([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
+  const prefixUrl = import.meta.env.VITE_PREFIX;
   const columns = [
     {
       title: t('prod'),
@@ -44,7 +45,7 @@ export default function PreviewMutedEvents(props: Props) {
         return (
           <>
             <div>
-              <Link to={`/alert-cur-events/${id}`}>{title}</Link>
+              <Link to={`${prefixUrl}/alert-cur-events/${id}`}>{title}</Link>
             </div>
             <div>
               {_.map(tags, (item) => {

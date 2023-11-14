@@ -30,6 +30,7 @@ const Add = (props: any) => {
   const history = useHistory();
   const { curBusiId } = useContext(CommonStateContext);
   const { t } = useTranslation('common');
+  const prefixUrl = import.meta.env.VITE_PREFIX;
   const handleSubmit = (values: any) => {
     request(`${api.tasktpls(curBusiId)}`, {
       method: 'POST',
@@ -37,7 +38,7 @@ const Add = (props: any) => {
     }).then(() => {
       message.success(t('msg.create.success'));
       props.history.push({
-        pathname: `/job-tpls`,
+        pathname: `${prefixUrl}/job-tpls`,
       });
     });
   };
@@ -46,7 +47,7 @@ const Add = (props: any) => {
     <PageLayout
       title={
         <>
-          <RollbackOutlined className='back' onClick={() => history.push('/job-tpls')} />
+          <RollbackOutlined className='back' onClick={() => history.push(prefixUrl + '/job-tpls')} />
           {t('tpl')}
         </>
       }

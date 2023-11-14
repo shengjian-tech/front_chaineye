@@ -13,6 +13,7 @@ interface IProps {
 
 export default function LokiDetail(props: IProps) {
   const { eventDetail, history } = props;
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   return [
     {
@@ -35,7 +36,7 @@ export default function LokiDetail(props: IProps) {
                       type='link'
                       onClick={() => {
                         history.push({
-                          pathname: '/log/explorer',
+                          pathname: prefixUrl + '/log/explorer',
                           search: queryString.stringify({
                             prom_ql,
                             data_source_name: 'loki',

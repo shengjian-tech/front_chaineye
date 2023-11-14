@@ -14,6 +14,7 @@ interface Props {
 export default function TimeSeriesDetail(props: Props) {
   const { t } = useTranslation('datasourceManage');
   const { data, visible, onClose } = props;
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   return (
     <Drawer
@@ -30,7 +31,7 @@ export default function TimeSeriesDetail(props: Props) {
       visible={visible}
       footer={
         <Button style={{ float: 'right' }}>
-          <Link to={`/help/source/edit/${data.plugin_type}/${data.id}`}>{t('common:btn.edit')}</Link>
+          <Link to={`${prefixUrl}/help/source/edit/${data.plugin_type}/${data.id}`}>{t('common:btn.edit')}</Link>
         </Button>
       }
     >

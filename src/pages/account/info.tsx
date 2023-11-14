@@ -116,6 +116,7 @@ export default function Info() {
   const handleImgClick = (i) => {
     setSelectAvatar(`/image/avatar${i}.png`);
   };
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   return (
     <>
@@ -160,7 +161,7 @@ export default function Info() {
               label={
                 <Space>
                   {t('account:profile.contact')}
-                  <Link to='/help/notification-settings?tab=contacts' target='_blank'>
+                  <Link to={prefixUrl + '/help/notification-settings?tab=contacts'} target='_blank'>
                     {t('account:profile.contactLinkToSetting')}
                   </Link>
                 </Space>
@@ -230,7 +231,7 @@ export default function Info() {
           </Col>
           <Col span={4}>
             <div className='avatar'>
-              <img src={profile.portrait || '/image/avatar1.png'} />
+              <img src={profile.portrait || prefixUrl + '/image/avatar1.png'} />
               <Button type='primary' className='update-avatar' onClick={() => setIsModalVisible(true)}>
                 {t('editPicture')}
               </Button>
@@ -243,7 +244,7 @@ export default function Info() {
           {avatarList.map((i) => {
             return (
               <div key={i} className={`/image/avatar${i}.png` === selectAvatar ? 'avatar active' : 'avatar'} onClick={() => handleImgClick(i)}>
-                <img src={`/image/avatar${i}.png`} />
+                <img src={`${prefixUrl}/image/avatar${i}.png`} />
               </div>
             );
           })}

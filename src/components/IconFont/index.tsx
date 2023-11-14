@@ -15,8 +15,10 @@
  *
  */
 import { createFromIconfontCN } from '@ant-design/icons';
+const prefixUrl = import.meta.env.VITE_PREFIX;
+
 const IconFont = createFromIconfontCN({
-  scriptUrl: '/font/iconfont.js',
+  scriptUrl: prefixUrl + '/font/iconfont.js',
 });
 
 export default IconFont;

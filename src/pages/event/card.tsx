@@ -56,6 +56,7 @@ function Card(props: Props, ref) {
   const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
   const [drawerList, setDrawerList] = useState<any>();
   const [visible, setVisible] = useState(false);
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   useEffect(() => {
     reloadCard();
@@ -116,7 +117,7 @@ function Card(props: Props, ref) {
         return (
           <>
             <div>
-              <Link to={`/alert-cur-events/${id}`}>{title}</Link>
+              <Link to={`${prefixUrl}/alert-cur-events/${id}`}>{title}</Link>
             </div>
             <div>
               {_.map(tags, (item) => {
@@ -167,7 +168,7 @@ function Card(props: Props, ref) {
               type='link'
               onClick={() => {
                 history.push({
-                  pathname: '/alert-mutes/add',
+                  pathname: prefixUrl + '/alert-mutes/add',
                   search: queryString.stringify({
                     busiGroup: record.group_id,
                     prod: record.rule_prod,

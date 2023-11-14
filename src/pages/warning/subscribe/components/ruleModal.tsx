@@ -46,6 +46,7 @@ const ruleModal: React.FC<props> = ({ visible, ruleModalClose, subscribe }) => {
   const [currentStrategyData, setCurrentStrategyData] = useState([]);
   const [bgid, setBgid] = useState(curBusiId);
   const [query, setQuery] = useState<string>('');
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   useEffect(() => {
     setBgid(curBusiId);
@@ -154,7 +155,7 @@ const ruleModal: React.FC<props> = ({ visible, ruleModalClose, subscribe }) => {
           <Link
             className='table-text'
             to={{
-              pathname: `/alert-rules/edit/${record.id}`,
+              pathname: `${prefixUrl}/alert-rules/edit/${record.id}`,
             }}
           >
             {data}

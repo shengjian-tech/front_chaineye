@@ -22,6 +22,7 @@ export default function Prometheus(props: IProps) {
   const { search } = useLocation();
   const query = queryString.parse(search, queryStringOptions);
   const defaultPromQL = _.isString(query.prom_ql) ? query.prom_ql : '';
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   let defaultTime: undefined | IRawTimeRange;
 
@@ -45,7 +46,7 @@ export default function Prometheus(props: IProps) {
         }
         if (panelIdx === 0) {
           history.replace({
-            pathname: '/metric/explorer',
+            pathname: prefixUrl + '/metric/explorer',
             search: queryString.stringify({ ...query, start, end }),
           });
         }

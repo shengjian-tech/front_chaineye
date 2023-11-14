@@ -24,12 +24,13 @@ export default function index() {
   const location = useLocation();
   const query = queryString.parse(location.search);
   const [err, setErr] = useState();
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   useEffect(() => {
     authCallbackOAuth({
       code: query.code,
       state: query.state,
-      redirect: query.redirect || '/',
+      redirect: query.redirect || prefixUrl + '/',
     })
       .then((res) => {
         if (res.err === '') {
@@ -63,7 +64,7 @@ export default function index() {
         <h1>第三方登录验证失败</h1>
         <div style={{ fontSize: 14 }}>{err}</div>
         <div>
-          <a href='/login'>返回登录页</a>
+          <a href={prefixUrl + '/login'}>返回登录页</a>
         </div>
       </div>
     </div>

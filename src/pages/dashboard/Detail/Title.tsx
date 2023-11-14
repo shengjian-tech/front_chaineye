@@ -49,6 +49,7 @@ export default function Title(props: IProps) {
   const { siteInfo } = useContext(CommonStateContext);
   const query = querystring.parse(location.search);
   const { viewMode, themeMode } = query;
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   useEffect(() => {
     document.title = `${dashboard.name} - ${siteInfo?.page_title || cachePageTitle}`;
@@ -111,7 +112,7 @@ export default function Title(props: IProps) {
       }}
     >
       <div className='dashboard-detail-header-left'>
-        {isPreview && !isBuiltin ? null : <RollbackOutlined className='back' onClick={() => history.push(props.gobackPath || '/dashboards')} />}
+        {isPreview && !isBuiltin ? null : <RollbackOutlined className='back' onClick={() => history.push(props.gobackPath || prefixUrl + '/dashboards')} />}
         <div className='title'>{dashboard.name}</div>
       </div>
       <div className='dashboard-detail-header-right'>

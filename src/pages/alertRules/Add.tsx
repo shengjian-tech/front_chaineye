@@ -21,8 +21,10 @@ import Form from './Form';
 
 export default function Add() {
   const { t } = useTranslation('alertRules');
+  const prefixUrl = import.meta.env.VITE_PREFIX;
+
   return (
-    <PageLayout title={t('title')} showBack backPath='/alert-rules'>
+    <PageLayout title={t('title')} showBack backPath={prefixUrl + '/alert-rules'}>
       <Form />
     </PageLayout>
   );

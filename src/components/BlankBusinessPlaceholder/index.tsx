@@ -24,6 +24,7 @@ interface Props {
 export default function BlankBusinessPlaceholder(props: Props) {
   const { t } = useTranslation();
   const { text } = props;
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   return (
     <div className='blank-busi-holder'>
@@ -32,7 +33,7 @@ export default function BlankBusinessPlaceholder(props: Props) {
       </p>
       <p>
         {text}需要归属某个业务组，请先 &nbsp;
-        <Link to='/busi-groups'>创建业务组</Link>
+        <Link to={prefixUrl + '/busi-groups'}>创建业务组</Link>
       </p>
     </div>
   );

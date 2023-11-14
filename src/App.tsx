@@ -95,9 +95,9 @@ export interface ICommonState {
   sideMenuBgMode: string;
   setSideMenuBgMode: (color: string) => void;
 }
-
+const prefixUrl = import.meta.env.VITE_PREFIX;
 // 可以匿名访问的路由 TODO: job-task output 应该也可以匿名访问
-const anonymousRoutes = ['/login', '/callback', '/chart', '/dashboards/share/'];
+const anonymousRoutes = [prefixUrl + '/login', prefixUrl + '/callback', prefixUrl + '/chart', prefixUrl + '/dashboards/share/'];
 // 判断是否是匿名访问的路由
 const anonymous = _.some(anonymousRoutes, (route) => location.pathname.startsWith(route));
 // 初始化数据 context
@@ -158,7 +158,7 @@ function App() {
         }
         document.title = siteInfo?.page_title || 'ChainEye';
         if (iconLink) {
-          iconLink.href = siteInfo?.menu_small_logo_url || '/image/favicon.ico';
+          iconLink.href = siteInfo?.menu_small_logo_url || prefixUrl + '/image/favicon.ico';
         }
         // 非匿名访问，需要初始化一些公共数据
         if (!anonymous) {
@@ -191,7 +191,7 @@ function App() {
             };
           });
         } else {
-          const datasourceList = !location.pathname.startsWith('/login') ? await getDatasourceBriefList() : [];
+          const datasourceList = !location.pathname.startsWith(prefixUrl + '/login') ? await getDatasourceBriefList() : [];
           initialized.current = true;
           setCommonState((state) => {
             return {
@@ -219,8 +219,8 @@ function App() {
         <ConfigProvider locale={i18n.language == 'en_US' ? enUS : zhCN}>
           <Router>
             <Switch>
-              <Route exact path='/job-task/:busiId/output/:taskId/:outputType' component={TaskOutput} />
-              <Route exact path='/job-task/:busiId/output/:taskId/:host/:outputType' component={TaskHostOutput} />
+              <Route exact path={prefixUrl + '/job-task/:busiId/output/:taskId/:outputType'} component={TaskOutput} />
+              <Route exact path={prefixUrl + '/job-task/:busiId/output/:taskId/:host/:outputType'} component={TaskHostOutput} />
               <>
                 <HeaderMenu />
                 <Content />

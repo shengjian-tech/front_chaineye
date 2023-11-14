@@ -33,6 +33,7 @@ export default function Servers() {
   const { profile, groupedDatasourceList, datasourceList } = useContext(CommonStateContext);
   const [data, setData] = useState<IndexPattern[]>([]);
   const [loading, setLoading] = useState(false);
+  const prefixUrl = import.meta.env.VITE_PREFIX;
   const fetchData = () => {
     getESIndexPatterns()
       .then((res) => {
@@ -92,7 +93,7 @@ export default function Servers() {
                     title: t('name'),
                     dataIndex: 'name',
                     render: (val, record) => {
-                      return <Link to={`/log/index-patterns/${record.id}`}>{val}</Link>;
+                      return <Link to={`${prefixUrl}/log/index-patterns/${record.id}`}>{val}</Link>;
                     },
                   },
                   {

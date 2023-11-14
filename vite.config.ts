@@ -33,11 +33,11 @@ const chunk2 = [
 const chunk3 = ['react-ace'];
 const chunk1 = ['react', 'react-router-dom', 'react-dom', 'moment', '@ant-design/icons', 'umi-request', 'lodash', 'react-grid-layout', 'd3', 'ahooks', 'color'];
 const antdChunk = ['antd'];
-
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [md(), reactRefresh(), plusResolve(), reactSvgPlugin({ defaultExport: 'component' })],
   define: {},
+  base: '/front_chaineye', // 静态资源访问配置（需和VITE_PREFIX保持一致）
   resolve: {
     alias: [
       {
@@ -49,7 +49,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/n9e-plus': {
-        target: 'http://192.168.1.15:17000/',
+        target: 'http://192.168.1.15:17000/22',
         changeOrigin: true,
       },
       '/api/n9e/proxy': {

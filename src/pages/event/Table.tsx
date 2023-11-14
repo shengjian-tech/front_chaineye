@@ -46,6 +46,7 @@ export default function TableCpt(props: IProps) {
   const { t } = useTranslation('AlertCurEvents');
   const { groupedDatasourceList } = useContext(CommonStateContext);
   const [refreshFlag, setRefreshFlag] = useState<string>(_.uniqueId('refresh_'));
+  const prefixUrl = import.meta.env.VITE_PREFIX;
   const columns = [
     {
       title: t('prod'),
@@ -73,7 +74,7 @@ export default function TableCpt(props: IProps) {
         return (
           <>
             <div>
-              <Link to={`/alert-cur-events/${id}`}>{title}</Link>
+              <Link to={`${prefixUrl}/alert-cur-events/${id}`}>{title}</Link>
             </div>
             <div>
               {_.map(tags, (item) => {
@@ -135,7 +136,7 @@ export default function TableCpt(props: IProps) {
               type='link'
               onClick={() => {
                 history.push({
-                  pathname: '/alert-mutes/add',
+                  pathname: prefixUrl + '/alert-mutes/add',
                   search: queryString.stringify({
                     busiGroup: record.group_id,
                     prod: record.rule_prod,

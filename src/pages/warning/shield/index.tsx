@@ -56,6 +56,7 @@ const Shield: React.FC = () => {
   const [prod, setProd] = useState<string>();
   const [cate, setCate] = useState<string>();
   const [datasourceIds, setDatasourceIds] = useState<number[]>();
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   const columns: ColumnsType = [
     {
@@ -65,7 +66,7 @@ const Shield: React.FC = () => {
         return (
           <Link
             to={{
-              pathname: `/alert-mutes/edit/${record.id}`,
+              pathname: `${prefixUrl}/alert-mutes/edit/${record.id}`,
               state: record,
             }}
           >
@@ -226,7 +227,7 @@ const Shield: React.FC = () => {
                   display: 'inline-block',
                 }}
                 onClick={() => {
-                  history.push(`/alert-mutes/edit/${record.id}?mode=clone`, {
+                  history.push(`${prefixUrl}/alert-mutes/edit/${record.id}?mode=clone`, {
                     ...record,
                     datasource_ids: record.datasource_ids || undefined,
                   });
@@ -334,7 +335,7 @@ const Shield: React.FC = () => {
         <BusinessGroup
           curBusiId={bgid}
           setCurBusiId={(newId) => {
-            history.push(`/alert-mutes?id=${newId}`);
+            history.push(`${prefixUrl}/alert-mutes?id=${newId}`);
             commonState.setCurBusiId(newId);
           }}
         />
@@ -363,7 +364,7 @@ const Shield: React.FC = () => {
                   type='primary'
                   className='add'
                   onClick={() => {
-                    history.push('/alert-mutes/add');
+                    history.push(prefixUrl + '/alert-mutes/add');
                   }}
                 >
                   {t('common:btn.add')}

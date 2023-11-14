@@ -8,17 +8,19 @@ interface Props {
   sideMenuBgMode: string;
 }
 
+const prefixUrl = import.meta.env.VITE_PREFIX;
+
 const getLogoSrc = (collapsed: boolean, sideMenuBgMode: string, siteInfo?: any) => {
   if (!collapsed) {
     if (sideMenuBgMode === 'light') {
-      return siteInfo?.menu_big_logo_url || '/image/logo-light-l.png';
+      return siteInfo?.menu_big_logo_url || prefixUrl + '/image/logo-light-l.png';
     }
-    return siteInfo?.menu_big_logo_url || '/image/logo-l.png';
+    return siteInfo?.menu_big_logo_url || prefixUrl + '/image/logo-l.png';
   }
   if (sideMenuBgMode === 'light') {
-    return siteInfo?.menu_small_logo_url || '/image/logo-light.png';
+    return siteInfo?.menu_small_logo_url || prefixUrl + '/image/logo-light.png';
   }
-  return siteInfo?.menu_small_logo_url || '/image/logo.png';
+  return siteInfo?.menu_small_logo_url || prefixUrl + '/image/logo.png';
 };
 
 export default function SideMenuHeader(props: Props) {

@@ -135,6 +135,8 @@ export default function Graph(props: IProps) {
     });
   }, [refreshFlag, metric, JSON.stringify(match), JSON.stringify(range), step, calcFunc, comparison, aggrFunc, aggrGroups]);
 
+  const prefixUrl = import.meta.env.VITE_PREFIX;
+
   return (
     <Card
       size='small'
@@ -233,7 +235,7 @@ export default function Graph(props: IProps) {
                   },
                 ]).then((res) => {
                   const ids = res.dat;
-                  window.open('/chart/' + ids);
+                  window.open(prefixUrl + '/chart/' + ids);
                 });
               }}
             />

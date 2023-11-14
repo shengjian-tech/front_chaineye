@@ -134,6 +134,8 @@ export default function Graph(props: IProps) {
     }
   }, [JSON.stringify(range), step, datasourceValue, promql, refreshFlag]);
 
+  const prefixUrl = import.meta.env.VITE_PREFIX;
+
   return (
     <div className='prom-graph-graph-container'>
       <div className='prom-graph-graph-controls'>
@@ -203,7 +205,7 @@ export default function Graph(props: IProps) {
                         },
                       ]).then((res) => {
                         const ids = res.dat;
-                        window.open('/chart/' + ids);
+                        window.open(prefixUrl + '/chart/' + ids);
                       });
                     }}
                   />

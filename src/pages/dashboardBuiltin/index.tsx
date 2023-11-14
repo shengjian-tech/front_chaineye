@@ -70,6 +70,7 @@ export default function index() {
       }
     });
   }, []);
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   return (
     <PageLayout title={t('title')} icon={<SafetyCertificateOutlined />}>
@@ -103,7 +104,7 @@ export default function index() {
                   onClick={() => {
                     setActive(item);
                     history.replace({
-                      pathname: '/dashboards-built-in',
+                      pathname: prefixUrl + '/dashboards-built-in',
                       search: `?cate=${item.name}`,
                     });
                     localStorage.setItem('builtin-cate', item.name);
@@ -244,7 +245,7 @@ export default function index() {
                             <Space>
                               <Link
                                 to={{
-                                  pathname: '/dashboards-built-in/detail',
+                                  pathname: prefixUrl + '/dashboards-built-in/detail',
                                   search: `__built-in-cate=${cateValue}&__built-in-name=${nameValue}`,
                                 }}
                               >

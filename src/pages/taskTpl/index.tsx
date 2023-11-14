@@ -50,6 +50,7 @@ const index = (_props: any) => {
   const busiId = curBusiId;
   const [selectedIds, setSelectedIds] = useState([] as any[]);
   const { tableProps, refresh } = useAntdTable<any, any>((options) => getTableData(options, busiId, query), { refreshDeps: [busiId, query] });
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   function handleTagClick(tag: string) {
     if (!_.includes(query, tag)) {
@@ -111,7 +112,7 @@ const index = (_props: any) => {
       title: t('tpl.title'),
       dataIndex: 'title',
       render: (text, record) => {
-        return <Link to={{ pathname: `/job-tpls/${record.id}/detail` }}>{text}</Link>;
+        return <Link to={{ pathname: `${prefixUrl}/job-tpls/${record.id}/detail` }}>{text}</Link>;
       },
     },
     {
@@ -144,11 +145,11 @@ const index = (_props: any) => {
       render: (_text, record) => {
         return (
           <span>
-            <Link to={{ pathname: `/job-tpls/add/task`, search: `tpl=${record.id}` }}>{t('task.create')}</Link>
+            <Link to={{ pathname: `${prefixUrl}/job-tpls/add/task`, search: `tpl=${record.id}` }}>{t('task.create')}</Link>
             <Divider type='vertical' />
-            <Link to={{ pathname: `/job-tpls/${record.id}/modify` }}>{t('common:btn.modify')}</Link>
+            <Link to={{ pathname: `${prefixUrl}/job-tpls/${record.id}/modify` }}>{t('common:btn.modify')}</Link>
             <Divider type='vertical' />
-            <Link to={{ pathname: `/job-tpls/${record.id}/clone` }}>{t('common:btn.clone')}</Link>
+            <Link to={{ pathname: `${prefixUrl}/job-tpls/${record.id}/clone` }}>{t('common:btn.clone')}</Link>
             <Divider type='vertical' />
             <Popconfirm
               title={<div style={{ width: 100 }}>{t('common:confirm.delete')}</div>}
@@ -194,7 +195,7 @@ const index = (_props: any) => {
                 />
               </Col>
               <Col span={10} className='textAlignRight'>
-                <Link to={{ pathname: `/job-tpls/add` }}>
+                <Link to={{ pathname: `${prefixUrl}/job-tpls/add` }}>
                   <Button style={{ marginRight: 10 }} type='primary'>
                     {t('tpl.create')}
                   </Button>

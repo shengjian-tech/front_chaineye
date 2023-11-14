@@ -35,6 +35,7 @@ const Add = (props: any) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
   const [action, setAction] = useState('');
+  const prefixUrl = import.meta.env.VITE_PREFIX;
   const handleSubmit = (values: any) => {
     if (action) {
       request(api.tasks(curBusiId), {
@@ -46,7 +47,7 @@ const Add = (props: any) => {
       }).then((res) => {
         message.success(t('msg.create.success'));
         props.history.push({
-          pathname: `/job-tasks/${res.dat}/result`,
+          pathname: `${prefixUrl}/job-tasks/${res.dat}/result`,
         });
       });
     }
@@ -89,12 +90,12 @@ const Add = (props: any) => {
       title={
         query.tpl ? (
           <>
-            <RollbackOutlined className='back' onClick={() => history.push('/job-tpls')} />
+            <RollbackOutlined className='back' onClick={() => history.push(prefixUrl + '/job-tpls')} />
             {t('tpl')}
           </>
         ) : (
           <>
-            <RollbackOutlined className='back' onClick={() => history.push('/job-tasks')} />
+            <RollbackOutlined className='back' onClick={() => history.push(prefixUrl + '/job-tasks')} />
             {t('task')}
           </>
         )

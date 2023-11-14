@@ -53,6 +53,7 @@ export default function index(props: IProps) {
   const [width, setWidth] = useState(_.toNumber(localStorage.getItem('leftwidth') || 200));
   const { busiGroups } = useContext(CommonStateContext);
   const [businessGroupData, setBusinessGroupData] = useState<Node[]>([]);
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   useEffect(() => {
     setBusinessGroupData(listToTree2(busiGroups));
@@ -91,7 +92,7 @@ export default function index(props: IProps) {
           <div className='left-area-group-title'>
             {title}
             {title === t('common:business_group') && (
-              <Link to='/busi-groups' target='_blank'>
+              <Link to={prefixUrl + '/busi-groups'} target='_blank'>
                 <SettingOutlined />
               </Link>
             )}

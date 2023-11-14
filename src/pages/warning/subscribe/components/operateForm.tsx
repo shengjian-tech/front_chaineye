@@ -53,6 +53,7 @@ const OperateForm: React.FC<Props> = ({ detail = {} as subscribeItem, type }) =>
   const redefineSeverity = Form.useWatch(['redefine_severity'], form);
   const redefineChannels = Form.useWatch(['redefine_channels'], form);
   const redefineWebhooks = Form.useWatch(['redefine_webhooks'], form);
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   useEffect(() => {
     getNotifyChannel();
@@ -114,12 +115,12 @@ const OperateForm: React.FC<Props> = ({ detail = {} as subscribeItem, type }) =>
     if (type === 1) {
       editSubscribe([{ ...params, id: detail.id }], curBusiId).then((_) => {
         message.success(t('common:success.edit'));
-        history.push('/alert-subscribes');
+        history.push(prefixUrl + '/alert-subscribes');
       });
     } else {
       addSubscribe(params, curBusiId).then((_) => {
         message.success(t('common:success.add'));
-        history.push('/alert-subscribes');
+        history.push(prefixUrl + '/alert-subscribes');
       });
     }
   };
@@ -213,7 +214,7 @@ const OperateForm: React.FC<Props> = ({ detail = {} as subscribeItem, type }) =>
                 ghost
                 style={{ marginRight: '8px' }}
                 onClick={() => {
-                  ruleCur?.id && history.push(`/alert-rules/edit/${ruleCur?.id}`);
+                  ruleCur?.id && history.push(`${prefixUrl}/alert-rules/edit/${ruleCur?.id}`);
                 }}
               >
                 {ruleCur?.name}
@@ -396,7 +397,7 @@ const OperateForm: React.FC<Props> = ({ detail = {} as subscribeItem, type }) =>
                     detail?.id &&
                       deleteSubscribes({ ids: [detail.id] }, curBusiId).then(() => {
                         message.success(t('common:success.delete'));
-                        history.push('/alert-subscribes');
+                        history.push(prefixUrl + '/alert-subscribes');
                       });
                   },
 

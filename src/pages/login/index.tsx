@@ -60,6 +60,8 @@ export default function Login() {
       }
     });
   };
+  const prefixUrl = import.meta.env.VITE_PREFIX;
+
   useSsoWay();
 
   useEffect(() => {
@@ -108,7 +110,7 @@ export default function Login() {
         localStorage.setItem(AccessTokenKey, access_token);
         localStorage.setItem('refresh_token', refresh_token);
         if (!err) {
-          window.location.href = redirect || '/';
+          window.location.href = redirect || prefixUrl + '/';
         }
       })
       .catch(() => {
@@ -123,12 +125,12 @@ export default function Login() {
       {/* <img src={'/image/login-left-top-corner.png'} className='left-top-bg'></img> */}
       {/* <img src={'/image/login-right-bottom-corner.png'} className='right-bottom-bg'></img> */}
       <div className='banner integration'>
-        <img src={'/image/login-dashboard.svg'} style={{ margin: '0 60px', zIndex: 5, width: 632 }}></img>
+        <img src={prefixUrl + '/image/login-dashboard.svg'} style={{ margin: '0 60px', zIndex: 5, width: 632 }}></img>
       </div>
       <div className='login-panel'>
         <div className='login-main  integration'>
           <div className='login-title'>
-            <img src={siteInfo?.login_page_logo_url || '/image/login-logo.png'} style={{ width: '120px' }} />
+            <img src={siteInfo?.login_page_logo_url || prefixUrl + '/image/login-logo.png'} style={{ width: '120px' }} />
           </div>
           <Form form={form} layout='vertical' requiredMark={true}>
             <Form.Item

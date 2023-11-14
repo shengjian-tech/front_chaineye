@@ -33,6 +33,7 @@ const UserForm = React.forwardRef<ReactNode, UserAndPasswordFormProps>((props, r
   const [contactsList, setContactsList] = useState<ContactsItem[]>([]);
   const [roleList, setRoleList] = useState<{ name: string; note: string }[]>([]);
   const contacts = Form.useWatch('contacts', form);
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   useImperativeHandle(ref, () => ({
     form: form,
@@ -158,7 +159,7 @@ const UserForm = React.forwardRef<ReactNode, UserAndPasswordFormProps>((props, r
         label={
           <Space>
             {t('account:profile.contact')}
-            <Link to='/help/notification-settings?tab=contacts' target='_blank'>
+            <Link to={prefixUrl + '/help/notification-settings?tab=contacts'} target='_blank'>
               {t('account:profile.contactLinkToSetting')}
             </Link>
           </Space>

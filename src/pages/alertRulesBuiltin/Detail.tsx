@@ -32,6 +32,7 @@ export default function Edit() {
   const query = queryString.parse(search);
   const [loading, setLoading] = useState<boolean>(true);
   const [initialValues, setInitialValues] = useState<any>(null);
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   useEffect(() => {
     getRuleCates()
@@ -59,7 +60,7 @@ export default function Edit() {
   if (loading) return null;
 
   return (
-    <PageLayout title={t('title')} showBack backPath='/alert-rules-built-in'>
+    <PageLayout title={t('title')} showBack backPath={prefixUrl + '/alert-rules-built-in'}>
       {initialValues ? <Form type={3} initialValues={initialValues} /> : <div>{t('alertRulesBuiltin:detail_no_result')}</div>}
     </PageLayout>
   );

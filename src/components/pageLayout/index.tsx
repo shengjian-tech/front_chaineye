@@ -54,6 +54,7 @@ const PageLayout: React.FC<IPageLayoutProps> = ({ icon, title, rightArea, introI
   const embed = localStorage.getItem('embed') === '1' && window.self !== window.top;
   const [curLanguage, setCurLanguage] = useState(i18nMap[i18n.language] || '中文');
   const [themeVisible, setThemeVisible] = useState(false);
+  const prefixUrl = import.meta.env.VITE_PREFIX;
   useEffect(() => {
     setCurLanguage(i18nMap[i18n.language] || '中文');
   }, [i18n.language]);
@@ -62,7 +63,7 @@ const PageLayout: React.FC<IPageLayoutProps> = ({ icon, title, rightArea, introI
     <Menu>
       <Menu.Item
         onClick={() => {
-          history.push('/account/profile/info');
+          history.push(prefixUrl + '/account/profile/info');
         }}
       >
         {t('profile')}
@@ -82,7 +83,7 @@ const PageLayout: React.FC<IPageLayoutProps> = ({ icon, title, rightArea, introI
             localStorage.removeItem(AccessTokenKey);
             localStorage.removeItem('refresh_token');
             localStorage.removeItem('curBusiId');
-            history.push('/login');
+            history.push(prefixUrl + '/login');
           });
         }}
       >
@@ -155,7 +156,7 @@ const PageLayout: React.FC<IPageLayoutProps> = ({ icon, title, rightArea, introI
                       </div> */}
                       {profile?.admin && (
                         <AdvancedWrap var='VITE_IS_PRO,VITE_IS_ENT'>
-                          <Link to='/audits'>{t('audits:title')}</Link>
+                          <Link to={prefixUrl + '/audits'}>{t('audits:title')}</Link>
                         </AdvancedWrap>
                       )}
                     </Space>
@@ -189,7 +190,7 @@ const PageLayout: React.FC<IPageLayoutProps> = ({ icon, title, rightArea, introI
                   </Dropdown>
                   <Dropdown overlay={menu} trigger={['click']}>
                     <span className='avator' style={{ cursor: 'pointer' }}>
-                      <img src={profile.portrait || '/image/avatar1.png'} alt='' />
+                      <img src={profile.portrait || prefixUrl + '/image/avatar1.png'} alt='' />
                       <span className='display-name'>{profile.nickname || profile.username}</span>
                       <DownOutlined />
                     </span>

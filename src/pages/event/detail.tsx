@@ -45,9 +45,10 @@ const EventDetailPage: React.FC = () => {
   const { busiId, eventId } = useParams<{ busiId: string; eventId: string }>();
   const commonState = useContext(CommonStateContext);
   const { busiGroups, datasourceList } = commonState;
+  const prefixUrl = import.meta.env.VITE_PREFIX;
   const handleNavToWarningList = (id) => {
     if (busiGroups.find((item) => item.id === id)) {
-      history.push(`/alert-rules?id=${id}`);
+      history.push(`${prefixUrl}/alert-rules?id=${id}`);
     } else {
       message.error(t('detail.buisness_not_exist'));
     }
@@ -56,6 +57,7 @@ const EventDetailPage: React.FC = () => {
   const isHistory = history.location.pathname.includes('alert-his-events');
   const [eventDetail, setEventDetail] = useState<any>();
   if (eventDetail) eventDetail.cate = eventDetail.cate || 'prometheus'; // TODO: 兼容历史的告警事件
+
   const descriptionInfo = [
     {
       label: t('detail.rule_name'),
@@ -65,7 +67,7 @@ const EventDetailPage: React.FC = () => {
           return (
             <Link
               to={{
-                pathname: `/alert-rules/edit/${rule_id}`,
+                pathname: `${prefixUrl}/alert-rules/edit/${rule_id}`,
               }}
               target='_blank'
             >
@@ -271,7 +273,7 @@ const EventDetailPage: React.FC = () => {
   }, [busiId, eventId]);
 
   return (
-    <PageLayout title={t('detail.title')} showBack backPath='/alert-his-events'>
+    <PageLayout title={t('detail.title')} showBack backPath={prefixUrl + '/alert-his-events'}>
       <div className='event-detail-container'>
         <Spin spinning={!eventDetail}>
           <Card
@@ -285,7 +287,7 @@ const EventDetailPage: React.FC = () => {
                     type='primary'
                     onClick={() => {
                       history.push({
-                        pathname: '/alert-mutes/add',
+                        pathname: prefixUrl + '/alert-mutes/add',
                         search: queryString.stringify({
                           busiGroup: eventDetail.group_id,
                           prod: eventDetail.rule_prod,
@@ -306,7 +308,7 @@ const EventDetailPage: React.FC = () => {
                           deleteAlertEventsModal(
                             [Number(eventId)],
                             () => {
-                              history.replace('/alert-cur-events');
+                              history.replace(prefixUrl + '/alert-cur-events');
                             },
                             t,
                           );

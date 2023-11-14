@@ -43,6 +43,7 @@ export default function index(props: IProps) {
   const { bgid } = useParams<{ bgid: string }>();
   const { t } = useTranslation('alertRules');
   const [form] = Form.useForm();
+  const prefixUrl = import.meta.env.VITE_PREFIX;
   const { groupedDatasourceList, licenseRulesRemaining } = useContext(CommonStateContext);
   const disabled = type === 3;
   const handleCheck = async (values) => {
@@ -72,7 +73,7 @@ export default function index(props: IProps) {
         message.error(res.error);
       } else {
         message.success(t('common:success.modify'));
-        history.push('/alert-rules');
+        history.push(prefixUrl + '/alert-rules');
       }
     } else {
       const { dat } = res;
@@ -84,7 +85,7 @@ export default function index(props: IProps) {
 
       if (!errorNum) {
         message.success(`${type === 2 ? t('common:success.clone') : t('common:success.add')}`);
-        history.push('/alert-rules');
+        history.push(prefixUrl + '/alert-rules');
       } else {
         message.error(t(msg));
       }
@@ -167,7 +168,7 @@ export default function index(props: IProps) {
                   {t('common:btn.test')}
                 </Button>
               </Tooltip> */}
-              <Link to='/alert-rules'>
+              <Link to={prefixUrl + '/alert-rules'}>
                 <Button>{t('common:btn.cancel')}</Button>
               </Link>
             </Space>

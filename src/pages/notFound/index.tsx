@@ -20,13 +20,15 @@ import { useHistory } from 'react-router';
 
 const NotFound: React.FC = () => {
   const history = useHistory();
+  const prefixUrl = import.meta.env.VITE_PREFIX;
+
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
       <Result
         title='404'
         subTitle='你访问的页面不存在!'
         extra={
-          <Button type='primary' onClick={() => history.replace('/')}>
+          <Button type='primary' onClick={() => history.replace(prefixUrl + '/')}>
             回到首页
           </Button>
         }

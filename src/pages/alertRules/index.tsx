@@ -38,6 +38,7 @@ export default function index() {
   const history = useHistory();
   const { id } = queryString.parse(search);
   const bgid = id ? Number(id) : commonState.curBusiId;
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   return (
     <PageLayout title={t('title')} icon={<SettingOutlined />}>
@@ -45,7 +46,7 @@ export default function index() {
         <BusinessGroup
           curBusiId={bgid}
           setCurBusiId={(id) => {
-            history.push(`/alert-rules?id=${id}`);
+            history.push(`${prefixUrl}/alert-rules?id=${id}`);
             commonState.setCurBusiId(id);
           }}
         />

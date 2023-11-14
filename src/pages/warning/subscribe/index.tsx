@@ -53,6 +53,7 @@ const Shield: React.FC = () => {
   const [currentShieldData, setCurrentShieldData] = useState<Array<subscribeItem>>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [datasourceIds, setDatasourceIds] = useState<number[]>();
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   const columns: ColumnsType = [
     {
@@ -62,7 +63,7 @@ const Shield: React.FC = () => {
         return (
           <Link
             to={{
-              pathname: `/alert-subscribes/edit/${record.id}`,
+              pathname: `${prefixUrl}/alert-subscribes/edit/${record.id}`,
               state: record,
             }}
           >
@@ -229,7 +230,7 @@ const Shield: React.FC = () => {
             <Space>
               <Link
                 to={{
-                  pathname: `/alert-subscribes/edit/${record.id}`,
+                  pathname: `${prefixUrl}/alert-subscribes/edit/${record.id}`,
                 }}
               >
                 {t('common:btn.modify')}
@@ -241,7 +242,7 @@ const Shield: React.FC = () => {
                   display: 'inline-block',
                 }}
                 onClick={() => {
-                  history.push(`/alert-subscribes/edit/${record.id}?mode=clone`);
+                  history.push(`${prefixUrl}/alert-subscribes/edit/${record.id}?mode=clone`);
                 }}
               >
                 {t('common:btn.clone')}
@@ -336,7 +337,7 @@ const Shield: React.FC = () => {
         <BusinessGroup
           curBusiId={bgid}
           setCurBusiId={(newId) => {
-            history.push(`/alert-subscribes?id=${newId}`);
+            history.push(`${prefixUrl}/alert-subscribes?id=${newId}`);
             commonState.setCurBusiId(newId);
           }}
         />
@@ -369,7 +370,7 @@ const Shield: React.FC = () => {
                   type='primary'
                   className='add'
                   onClick={() => {
-                    history.push('/alert-subscribes/add');
+                    history.push(prefixUrl + '/alert-subscribes/add');
                   }}
                 >
                   {t('common:btn.add')}

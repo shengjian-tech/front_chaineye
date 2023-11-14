@@ -195,6 +195,7 @@ export default function DetailV2(props: IProps) {
   const stopAutoRefresh = () => {
     refreshRef.current?.closeRefresh();
   };
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   useEffect(() => {
     refresh();
@@ -338,7 +339,7 @@ export default function DetailV2(props: IProps) {
                   },
                 ]).then((res) => {
                   const ids = res.dat;
-                  window.open('/chart/' + ids);
+                  window.open(prefixUrl + '/chart/' + ids);
                 });
               }}
               onUpdated={(res) => {
@@ -399,7 +400,7 @@ export default function DetailV2(props: IProps) {
             type='primary'
             ghost
             onClick={() => {
-              history.push('/help/migrate');
+              history.push(prefixUrl + '/help/migrate');
             }}
           >
             前往批量迁移大盘

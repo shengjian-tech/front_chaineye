@@ -20,6 +20,8 @@ export default function FormCpt() {
   const [type, setType] = useState(action === 'add' ? params.type : '');
   const [data, setData] = useState<any>();
   const [submitLoading, setSubmitLoading] = useState(false);
+  const prefixUrl = import.meta.env.VITE_PREFIX;
+
   const onFinish = async (values: any) => {
     setSubmitLoading(true);
     // 转换 http.headers 格式
@@ -59,7 +61,7 @@ export default function FormCpt() {
         message.success(action === 'add' ? t('common:success.add') : t('common:success.modify'));
         setTimeout(() => {
           history.push({
-            pathname: '/help/source',
+            pathname: prefixUrl + '/help/source',
           });
         }, 2000);
       })
@@ -87,7 +89,7 @@ export default function FormCpt() {
             crumbs={[
               {
                 text: t('title'),
-                link: '/help/source',
+                link: prefixUrl + '/help/source',
               },
               {
                 text: type!,

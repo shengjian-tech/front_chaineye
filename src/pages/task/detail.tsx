@@ -35,6 +35,7 @@ const Detail = (props: any) => {
   const taskId = _.get(props, 'match.params.id');
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({} as any);
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   useEffect(() => {
     if (taskId !== undefined) {
@@ -58,7 +59,7 @@ const Detail = (props: any) => {
     <PageLayout
       title={
         <>
-          <RollbackOutlined className='back' onClick={() => history.push('/job-tasks')} />
+          <RollbackOutlined className='back' onClick={() => history.push(prefixUrl + '/job-tasks')} />
           {t('task')}
         </>
       }
@@ -127,10 +128,10 @@ const Detail = (props: any) => {
               </div>
             </div>
             <div style={{ marginTop: 10 }}>
-              <Link to={{ pathname: '/job-tasks/add', search: `task=${taskId}` }}>
+              <Link to={{ pathname: prefixUrl + '/job-tasks/add', search: `task=${taskId}` }}>
                 <Button type='primary'>{t('task.clone.new')}</Button>
               </Link>
-              <Link style={{ marginLeft: 8 }} to={{ pathname: `/job-tasks` }}>
+              <Link style={{ marginLeft: 8 }} to={{ pathname: `${prefixUrl}/job-tasks` }}>
                 <Button>{t('common:btn.back')}</Button>
               </Link>
             </div>

@@ -66,6 +66,7 @@ const OperateForm: React.FC<Props> = ({ detail = {}, type }: any) => {
   const history = useHistory();
   const [timeLen, setTimeLen] = useState('1h');
   const { groupedDatasourceList, busiGroups, isPlus } = useContext(CommonStateContext);
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   useEffect(() => {
     timeChange();
@@ -94,7 +95,7 @@ const OperateForm: React.FC<Props> = ({ detail = {}, type }: any) => {
     const params = processFormValues(values);
     const curBusiItemId = form.getFieldValue('group_id');
     const historyPushOptions = {
-      pathname: '/alert-mutes',
+      pathname: prefixUrl + '/alert-mutes',
       search: `?id=${curBusiItemId}`,
     };
     if (type == 1) {

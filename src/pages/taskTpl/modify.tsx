@@ -33,6 +33,7 @@ const Modify = (props: any) => {
   const { t } = useTranslation('common');
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<any>({});
+  const prefixUrl = import.meta.env.VITE_PREFIX;
   const handleSubmit = (values: any) => {
     request(`${api.tasktpl(curBusiId)}/${id}`, {
       method: 'PUT',
@@ -40,7 +41,7 @@ const Modify = (props: any) => {
     }).then(() => {
       message.success(t('msg.modify.success'));
       props.history.push({
-        pathname: `/job-tpls`,
+        pathname: `${prefixUrl}/job-tpls`,
       });
     });
   };
@@ -67,7 +68,7 @@ const Modify = (props: any) => {
     <PageLayout
       title={
         <>
-          <RollbackOutlined className='back' onClick={() => history.push('/job-tpls')} />
+          <RollbackOutlined className='back' onClick={() => history.push(prefixUrl + '/job-tpls')} />
           {t('tpl')}
         </>
       }

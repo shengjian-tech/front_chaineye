@@ -28,18 +28,21 @@ import EditField from './EditField';
 export default function Fields() {
   const { t } = useTranslation('es-index-patterns');
   const { id } = useParams<{ id: string }>();
-  const [data, setData] = useState<
-    Omit<IndexPattern, 'fields_format'> & {
-      fieldConfig: FieldConfig;
-    }
-  >();
+  const [data, setData] =
+    useState<
+      Omit<IndexPattern, 'fields_format'> & {
+        fieldConfig: FieldConfig;
+      }
+    >();
   const [tablePageCurrent, setTablePageCurrent] = useState<number>(1);
   const [fields, setFields] = useState<any[]>([]);
   const [fieldsTypes, setFieldsTypes] = useState<any[]>([]);
-  const [query, setQuery] = useState<{
-    search?: string;
-    type?: string;
-  }>();
+  const [query, setQuery] =
+    useState<{
+      search?: string;
+      type?: string;
+    }>();
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   useEffect(() => {
     if (id) {
@@ -74,7 +77,7 @@ export default function Fields() {
         </Space>
       }
       showBack
-      backPath='/log/index-patterns'
+      backPath={prefixUrl + '/log/index-patterns'}
     >
       <div>
         <div style={{ padding: 10 }}>

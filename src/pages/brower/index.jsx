@@ -118,10 +118,18 @@ class Brower extends Component {
     request(`/api/n9e/xuperchain/tx/history`, {
       method: 'GET',
     }).then((res) => {
-      // console.log(res);
+      console.log(res, '-----res-----');
+      let blocks = res.dat.blocks.map((item) => {
+        item.key = item.block_id;
+        return item;
+      });
+      let txs = res.dat.txs.map((item) => {
+        item.key = item.tx_id;
+        return item;
+      });
       this.setState({
-        keyData: res.dat.blocks,
-        keyData_1: res.dat.txs,
+        keyData: blocks,
+        keyData_1: txs,
       });
     });
   }

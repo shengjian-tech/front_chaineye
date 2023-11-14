@@ -259,23 +259,25 @@ const SideMenu: FC = () => {
       window.dispatchEvent(new Event('resize'));
     }, 500);
   };
+  const prefixUrl = import.meta.env.VITE_PREFIX;
   const handleClick = (key) => {
+    console.log(key, '*******key********');
     if ((key as string).startsWith('/')) {
-      history.push(key as string);
+      history.push((prefixUrl + key) as string);
     }
   };
   const hideSideMenu = () => {
     if (
-      location.pathname === '/login' ||
-      location.pathname.startsWith('/chart/') ||
-      location.pathname.startsWith('/dashboards/share/') ||
-      location.pathname === '/callback' ||
-      location.pathname.indexOf('/polaris/screen') === 0
+      location.pathname === prefixUrl + '/login' ||
+      location.pathname.startsWith(prefixUrl + '/chart/') ||
+      location.pathname.startsWith(prefixUrl + '/dashboards/share/') ||
+      location.pathname === prefixUrl + '/callback' ||
+      location.pathname.indexOf(prefixUrl + '/polaris/screen') === 0
     ) {
       return true;
     }
     // 大盘全屏模式下也需要隐藏左侧菜单
-    if (location.pathname.indexOf('/dashboard') === 0) {
+    if (location.pathname.indexOf(prefixUrl + '/dashboard') === 0) {
       const query = querystring.parse(location.search);
       if (query?.viewMode === 'fullscreen') {
         return true;
@@ -318,6 +320,7 @@ const SideMenu: FC = () => {
             return item.children && item.children.length > 0;
           },
         );
+        console.log(newMenus, '**newMenus**');
         newMenus.unshift({
           key: 'brower',
           icon: <IconFont type='icon-Menu_Infrastructure' />,
@@ -325,20 +328,19 @@ const SideMenu: FC = () => {
           label: t('首页'),
           children: [
             {
-              key: '/brower',
+              key: prefixUrl + '/brower',
               label: t('首页'),
             },
           ],
         });
         setMenus(newMenus);
-        console.log(menus, '**menus**');
       });
     }
   }, [profile?.roles, i18n.language]);
 
-  let imgURL = siteInfo?.menu_big_logo_url || '/image/logo.png';
+  let imgURL = siteInfo?.menu_big_logo_url || prefixUrl + '/image/logo.png';
   if (collapsed === '1') {
-    imgURL = siteInfo?.menu_small_logo_url || '/image/logo.png';
+    imgURL = siteInfo?.menu_small_logo_url || prefixUrl + '/image/logo.png';
   }
 
   return (
@@ -360,8 +362,8 @@ const SideMenu: FC = () => {
             collapse: collapsed === '1',
           })}
         >
-          <div className='name' onClick={() => history.push('/')} key='overview'>
-            <img src={imgURL} alt='' className='logo' />
+          <div className='name' onClick={() => history.push(prefixUrl + '/')} key='overview'>
+            <img src={prefixUrl + imgURL} alt='' className='logo' />
           </div>
         </div>
       )}

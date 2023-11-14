@@ -71,4 +71,4 @@ export type DatasourceCateEnum = BaseDatasourceCateEnum | AdvancedDatasourceCate
 
 export const N9E_PATHNAME = import.meta.env.VITE_IS_ENT === 'true' || import.meta.env.VITE_IS_PRO === 'true' ? 'n9e-plus' : 'n9e';
 
-export const AccessTokenKey = 'access_token';
+export const AccessTokenKey = 'token';

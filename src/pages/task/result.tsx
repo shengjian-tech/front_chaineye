@@ -43,6 +43,7 @@ const index = (props: any) => {
   const [data, setData] = useState({} as any);
   const [hosts, setHosts] = useState<HostItem[]>([]);
   const [loading, setLoading] = useState(false);
+  const prefixUrl = import.meta.env.VITE_PREFIX;
   const getTableData = () => {
     setLoading(true);
     return request(`${api.task(curBusiId)}/${params.id}`)
@@ -127,11 +128,11 @@ const index = (props: any) => {
       render: (_text, record) => {
         return (
           <span>
-            <Link to={`/job-task/${curBusiId}/output/${params.id}/${record.host}/stdout`} target='_blank'>
+            <Link to={`${prefixUrl}/job-task/${curBusiId}/output/${params.id}/${record.host}/stdout`} target='_blank'>
               stdout
             </Link>
             <Divider type='vertical' />
-            <a href={`/job-task/${curBusiId}/output/${params.id}/${record.host}/stderr`} target='_blank'>
+            <a href={`${prefixUrl}/job-task/${curBusiId}/output/${params.id}/${record.host}/stderr`} target='_blank'>
               stderr
             </a>
           </span>
@@ -160,7 +161,7 @@ const index = (props: any) => {
     <PageLayout
       title={
         <>
-          <RollbackOutlined className='back' onClick={() => history.push('/job-tasks')} />
+          <RollbackOutlined className='back' onClick={() => history.push(prefixUrl + '/job-tasks')} />
           {t('task')}
         </>
       }
@@ -181,17 +182,17 @@ const index = (props: any) => {
           <Row style={{ marginBottom: 20 }}>
             <Col span={18}>
               <div>
-                <a href={`/job-task/${curBusiId}/output/${taskId}/stdout`} target='_blank'>
+                <a href={`${prefixUrl}/job-task/${curBusiId}/output/${taskId}/stdout`} target='_blank'>
                   stdouts
                 </a>
                 <Divider type='vertical' />
-                <a href={`/job-task/${curBusiId}/output/${taskId}/stderr`} target='_blank'>
+                <a href={`${prefixUrl}/job-task/${curBusiId}/output/${taskId}/stderr`} target='_blank'>
                   stderrs
                 </a>
                 <Divider type='vertical' />
-                <Link to={{ pathname: `/job-tasks/${taskId}/detail` }}>{t('task.meta')}</Link>
+                <Link to={{ pathname: `${prefixUrl}/job-tasks/${taskId}/detail` }}>{t('task.meta')}</Link>
                 <Divider type='vertical' />
-                <Link to={{ pathname: '/job-tasks/add', search: `task=${taskId}` }}>{t('task.clone')}</Link>
+                <Link to={{ pathname: prefixUrl + '/job-tasks/add', search: `task=${taskId}` }}>{t('task.clone')}</Link>
               </div>
             </Col>
             <Col span={6} className='textAlignRight'>

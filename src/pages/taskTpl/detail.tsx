@@ -35,6 +35,7 @@ const Detail = (props: any) => {
   const { t } = useTranslation('common');
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({} as Tpl);
+  const prefixUrl = import.meta.env.VITE_PREFIX;
 
   useEffect(() => {
     if (id) {
@@ -58,7 +59,7 @@ const Detail = (props: any) => {
     <PageLayout
       title={
         <>
-          <RollbackOutlined className='back' onClick={() => history.push('/job-tpls')} />
+          <RollbackOutlined className='back' onClick={() => history.push(prefixUrl + '/job-tpls')} />
           {t('tpl')}
         </>
       }
@@ -131,12 +132,12 @@ const Detail = (props: any) => {
               </div>
             </div>
             <div style={{ marginTop: 10 }}>
-              <Link to={{ pathname: `/job-tpls/${id}/modify` }}>
+              <Link to={{ pathname: `${prefixUrl}/job-tpls/${id}/modify` }}>
                 <Button type='primary' style={{ marginRight: 10 }}>
                   {t('tpl.modify')}
                 </Button>
               </Link>
-              <Link to={{ pathname: `/job-tpls/add/task`, search: `tpl=${id}` }}>
+              <Link to={{ pathname: `${prefixUrl}/job-tpls/add/task`, search: `tpl=${id}` }}>
                 <Button type='primary'>{t('tpl.create.task')}</Button>
               </Link>
             </div>
