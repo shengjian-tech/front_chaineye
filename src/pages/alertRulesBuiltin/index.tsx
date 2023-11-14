@@ -48,6 +48,7 @@ export default function index() {
   const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
   const selectedRows = useRef<RuleType[]>([]);
   const curRules = active ? processRules(active.name, active.alert_rules) : [];
+  const interfaceUrl = import.meta.env.VITE_INTERFACE_PREFIX;
   const filteredCates = _.orderBy(
     _.filter(data, (item) => {
       return _.upperCase(item.name).indexOf(_.upperCase(cateSearch)) > -1;
@@ -162,7 +163,7 @@ export default function index() {
                   }
                 >
                   <Space>
-                    <img src={item.icon_url} style={{ width: 24, height: 24 }} />
+                    <img src={interfaceUrl + item.icon_url} style={{ width: 24, height: 24 }} />
                     {item.name}
                   </Space>
                 </List.Item>

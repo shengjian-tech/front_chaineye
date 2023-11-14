@@ -25,9 +25,10 @@ import './locale';
 export default function version() {
   const { t } = useTranslation('version');
   const [backendVersion, setBackendVersion] = useState('');
+  const interfaceUrl = import.meta.env.VITE_INTERFACE_PREFIX;
 
   useEffect(() => {
-    fetch('/api/n9e/version')
+    fetch(interfaceUrl + '/api/n9e/version')
       .then((res) => {
         return res.text();
       })

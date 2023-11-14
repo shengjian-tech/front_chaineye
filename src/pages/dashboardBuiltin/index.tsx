@@ -34,6 +34,7 @@ export default function index() {
   const pagination = usePagination({ PAGESIZE_KEY: 'dashboard-builtin-pagesize' });
   const selectedRows = useRef<BoardType[]>([]);
   const datasource = active ? active.boards : [];
+  const interfaceUrl = import.meta.env.VITE_INTERFACE_PREFIX;
   const filteredCates = _.orderBy(
     _.filter(data, (item) => {
       return _.upperCase(item.name).indexOf(_.upperCase(cateSearch)) > -1;
@@ -130,7 +131,7 @@ export default function index() {
                   }
                 >
                   <Space>
-                    <img src={item.icon_url} style={{ width: 24, height: 24 }} />
+                    <img src={interfaceUrl + item.icon_url} style={{ width: 24, height: 24 }} />
                     {item.name}
                   </Space>
                 </List.Item>
