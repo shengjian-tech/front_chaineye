@@ -13,12 +13,13 @@ interface Props {
 export default function SourceCard(props: Props) {
   const { t } = useTranslation('datasourceManage');
   const { sourceMap, urlPrefix = 'settings' } = props;
+  const prefixUrl = import.meta.env.VITE_PREFIX;
   return (
     <Row className='settings-datasource' gutter={[16, 16]}>
       {_.map(sourceMap, (item) => {
         return (
           <Col span={6} key={item.name}>
-            <Link to={`/${urlPrefix}/add/${item.type.includes('.') ? _.toLower(item.type).split('.')[0] : _.toLower(item.type)}`}>
+            <Link to={`${prefixUrl}/${urlPrefix}/add/${item.type.includes('.') ? _.toLower(item.type).split('.')[0] : _.toLower(item.type)}`}>
               <div className='settings-datasource-item'>
                 <div className='settings-datasource-item-meta'>
                   <div style={{ height: '45px', lineHeight: '45px' }}>{item.name !== '自定义事件' && item.logo}</div>
