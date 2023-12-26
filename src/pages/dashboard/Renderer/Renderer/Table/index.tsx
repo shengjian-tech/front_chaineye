@@ -31,7 +31,7 @@ import localeCompare from '../../utils/localeCompare';
 import formatToTable from '../../utils/formatToTable';
 import { useGlobalState } from '../../../globalState';
 import { getDetailUrl } from '../../utils/replaceExpressionDetail';
-import { transformColumns, downloadCsv } from './utils';
+import { transformColumns, downloadCsv, useDeepCompareWithRef } from './utils';
 import Cell from './Cell';
 import './style.less';
 
@@ -40,6 +40,7 @@ interface IProps {
   series: any[];
   themeMode?: 'dark';
   time: IRawTimeRange;
+  isPreview?: boolean;
 }
 
 const DEFAULT_LIGTH_COLOR = '#ffffff';
@@ -88,7 +89,7 @@ function TableCpt(props: IProps, ref: any) {
   const [dashboardMeta] = useGlobalState('dashboardMeta');
   const eleRef = useRef<HTMLDivElement>(null);
   const size = useSize(eleRef);
-  const { values, series, themeMode, time } = props;
+  const { values, series, themeMode, time, isPreview } = props;
   const { custom, options, overrides } = values;
   const { showHeader, calc, aggrDimension, displayMode, columns, sortColumn, sortOrder, colorMode = 'value' } = custom;
   const [calculatedValues, setCalculatedValues] = useState<any[]>([]);
@@ -98,6 +99,7 @@ function TableCpt(props: IProps, ref: any) {
   });
   const [tableFields, setTableFields] = useGlobalState('tableFields');
   const [displayedTableFields, setDisplayedTableFields] = useGlobalState('displayedTableFields');
+  const [tableRefIds, setTableRefIds] = useGlobalState('tableRefIds');
   const isAppendLinkColumn = !_.isEmpty(custom.links) && custom.linkMode !== 'cellLink';
 
   useEffect(() => {
@@ -124,12 +126,23 @@ function TableCpt(props: IProps, ref: any) {
     } else if (displayMode === 'labelsOfSeriesToRows') {
       fields = !_.isEmpty(columns) ? columns : [...getColumnsKeys(data), 'value'];
     } else if (displayMode === 'labelValuesToRows') {
-      fields = [aggrDimension];
+      fields = _.isArray(aggrDimension) ? aggrDimension : [aggrDimension];
     }
     setDisplayedTableFields(fields);
-    setTableFields(getColumnsKeys(data));
+    tableDataSource = formatToTable(data, aggrDimension, 'refId');
+    const groupNames = _.reduce(
+      tableDataSource,
+      (pre, item) => {
+        return _.union(_.concat(pre, item.groupNames));
+      },
+      [],
+    );
+    if (isPreview) {
+      setTableRefIds(groupNames);
+      setTableFields(getColumnsKeys(data));
+    }
     setCalculatedValues(data);
-  }, [JSON.stringify(series), calc, JSON.stringify(options), displayMode, aggrDimension, JSON.stringify(columns)]);
+  }, [isPreview, useDeepCompareWithRef(series), calc, useDeepCompareWithRef(options), displayMode, aggrDimension, useDeepCompareWithRef(columns)]);
 
   const searchInput = useRef<any>(null);
   const handleSearch = (confirm: (param?: FilterConfirmProps) => void) => {
@@ -417,7 +430,7 @@ function TableCpt(props: IProps, ref: any) {
         tableColumns = transformColumns(tableColumns, values.transformations);
       }
       return tableColumns;
-    }, [JSON.stringify(columns), displayMode, JSON.stringify(calculatedValues), sortObj, themeMode, aggrDimension, overrides, size]),
+    }, [useDeepCompareWithRef(columns), displayMode, useDeepCompareWithRef(calculatedValues), sortObj, themeMode, aggrDimension, overrides, size]),
     columnsState: {
       persistenceType: 'localStorage',
       persistenceKey: `dashboard-table2.1-resizable-${values.id}`,
@@ -485,7 +498,7 @@ function TableCpt(props: IProps, ref: any) {
         },
       };
     },
-    [JSON.stringify(tableDataSource), JSON.stringify(aggrDimension), displayMode, JSON.stringify(values.transformations), JSON.stringify(columns)],
+    [useDeepCompareWithRef(tableDataSource), useDeepCompareWithRef(aggrDimension), displayMode, useDeepCompareWithRef(values.transformations), useDeepCompareWithRef(columns)],
   );
 
   return (

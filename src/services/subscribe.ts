@@ -23,6 +23,13 @@ export const getSubscribeList = function (params: { id: number }) {
   });
 };
 
+export const getBusiGroupsAlertSubscribes = function (gids: string) {
+  return request('/api/n9e/busi-groups/alert-subscribes', {
+    method: RequestMethod.Get,
+    params: { gids },
+  });
+};
+
 export const getSubscribeData = function (subscribeId: number) {
   return request(`/api/n9e/alert-subscribe/${subscribeId}`, {
     method: RequestMethod.Get,

@@ -45,6 +45,7 @@ import Text from './Text';
 import Gauge from './Gauge';
 import Iframe from './Iframe';
 import Heatmap from './Heatmap';
+import BarChart from './BarChart';
 import { IVariable } from '../../VariableConfig/definition';
 import Markdown from '../../Editor/Components/Markdown';
 import useQuery from '../datasource/useQuery';
@@ -59,6 +60,7 @@ interface IProps {
   dashboardId: string;
   id?: string;
   time: IRawTimeRange;
+  setRange?: (range: IRawTimeRange) => void;
   values: IPanel;
   variableConfig?: IVariable[];
   isPreview?: boolean; // 是否是预览，预览中不显示编辑和分享
@@ -112,16 +114,17 @@ function index(props: IProps) {
     series,
   };
   const RendererCptMap = {
-    timeseries: () => <Timeseries {...subProps} themeMode={themeMode} time={time} />,
-    stat: () => <Stat {...subProps} bodyWrapRef={bodyWrapRef} themeMode={themeMode} />,
-    table: () => <Table {...subProps} themeMode={themeMode} time={time} ref={tableRef} />,
-    pie: () => <Pie {...subProps} themeMode={themeMode} time={time} />,
-    hexbin: () => <Hexbin {...subProps} themeMode={themeMode} time={time} />,
+    timeseries: () => <Timeseries {...subProps} themeMode={themeMode} time={time} setRange={props.setRange} />,
+    stat: () => <Stat {...subProps} bodyWrapRef={bodyWrapRef} themeMode={themeMode} isPreview={isPreview} />,
+    table: () => <Table {...subProps} themeMode={themeMode} time={time} isPreview={isPreview} ref={tableRef} />,
+    pie: () => <Pie {...subProps} themeMode={themeMode} time={time} isPreview={isPreview} />,
+    hexbin: () => <Hexbin {...subProps} themeMode={themeMode} time={time} isPreview={isPreview} />,
     barGauge: () => <BarGauge {...subProps} themeMode={themeMode} time={time} />,
     text: () => <Text {...subProps} />,
-    gauge: () => <Gauge {...subProps} themeMode={themeMode} />,
+    gauge: () => <Gauge {...subProps} themeMode={themeMode} isPreview={isPreview} />,
     iframe: () => <Iframe {...subProps} time={time} />,
-    heatmap: () => <Heatmap {...subProps} themeMode={themeMode} time={time} />,
+    heatmap: () => <Heatmap {...subProps} themeMode={themeMode} time={time} isPreview={isPreview} />,
+    barchart: () => <BarChart {...subProps} themeMode={themeMode} time={time} isPreview={isPreview} />,
   };
 
   return (
@@ -344,6 +347,6 @@ function index(props: IProps) {
 }
 
 export default React.memo(index, (prevProps, nextProps) => {
-  const omitKeys = ['onCloneClick', 'onShareClick', 'onEditClick', 'onDeleteClick'];
+  const omitKeys = ['setRange', 'onCloneClick', 'onShareClick', 'onEditClick', 'onDeleteClick'];
   return _.isEqual(_.omit(prevProps, omitKeys), _.omit(nextProps, omitKeys));
 });

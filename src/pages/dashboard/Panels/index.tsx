@@ -42,6 +42,7 @@ import {
 import Renderer from '../Renderer/Renderer/index';
 import Row from './Row';
 import EditorModal from './EditorModal';
+import { getDefaultThemeMode } from '../Detail/utils';
 import './style.less';
 
 interface IProps {
@@ -49,6 +50,7 @@ interface IProps {
   editable: boolean;
   dashboard: Dashboard;
   range: IRawTimeRange;
+  setRange: (range: IRawTimeRange) => void;
   variableConfig: any;
   panels: any[];
   isPreview: boolean;
@@ -62,7 +64,7 @@ const ReactGridLayout = WidthProvider(RGL);
 function index(props: IProps) {
   const { profile } = useContext(CommonStateContext);
   const location = useLocation();
-  const { themeMode } = querystring.parse(location.search);
+  const themeMode = getDefaultThemeMode(querystring.parse(location.search));
   const { editable, dashboard, range, variableConfig, panels, isPreview, setPanels, onShareClick, onUpdated } = props;
   const roles = _.get(profile, 'roles', []);
   const isAuthorized = !_.some(roles, (item) => item === 'Guest') && !isPreview;
@@ -87,7 +89,13 @@ function index(props: IProps) {
 
   useEffect(() => {
     setPanels(processRepeats(panels, variableConfig));
-  }, []);
+  }, [
+    JSON.stringify(
+      _.map(variableConfig, (item) => {
+        return item.value;
+      }),
+    ),
+  ]);
 
   return (
     <div className='dashboards-panels'>
@@ -144,6 +152,7 @@ function index(props: IProps) {
                     dashboardId={_.toString(props.dashboardId)}
                     id={item.id}
                     time={range}
+                    setRange={props.setRange}
                     values={item}
                     variableConfig={variableConfig}
                     onCloneClick={() => {

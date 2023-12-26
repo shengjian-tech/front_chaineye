@@ -20,43 +20,36 @@ import { colors } from '../Components/ColorRangeMenu/config';
 export const visualizations = [
   {
     type: 'timeseries',
-    name: '时间序列图',
+  },
+  {
+    type: 'barchart',
   },
   {
     type: 'stat',
-    name: '指标值',
   },
   {
     type: 'table',
-    name: '表格',
   },
   {
     type: 'pie',
-    name: '饼图',
   },
   {
     type: 'hexbin',
-    name: '蜂窝图',
   },
   {
     type: 'barGauge',
-    name: '排行榜',
   },
   {
     type: 'text',
-    name: '文字卡片',
   },
   {
     type: 'gauge',
-    name: '仪表盘',
   },
   {
     type: 'heatmap',
-    name: '色块图',
   },
   {
     type: 'iframe',
-    name: '内嵌文档(iframe)',
   },
 ];
 
@@ -75,33 +68,15 @@ export const IRefreshMap = {
 };
 
 export const calcsOptions = {
-  lastNotNull: {
-    name: '最后一个非空值',
-  },
-  last: {
-    name: '最后一个值',
-  },
-  firstNotNull: {
-    name: '第一个非空值',
-  },
-  first: {
-    name: '第一个值',
-  },
-  min: {
-    name: '最小值',
-  },
-  max: {
-    name: '最大值',
-  },
-  avg: {
-    name: '平均值',
-  },
-  sum: {
-    name: '总和',
-  },
-  count: {
-    name: '数量',
-  },
+  lastNotNull: {},
+  last: {},
+  firstNotNull: {},
+  first: {},
+  min: {},
+  max: {},
+  avg: {},
+  sum: {},
+  count: {},
 };
 
 export const defaultThreshold = {
@@ -152,7 +127,7 @@ export const defaultCustomValuesMap = {
     drawStyle: 'lines',
     lineInterpolation: 'smooth',
     lineWidth: 1,
-    fillOpacity: 0.5,
+    fillOpacity: 0,
     gradientMode: 'none',
     stack: 'off',
     scaleDistribution: {
@@ -171,6 +146,7 @@ export const defaultCustomValuesMap = {
     textMode: 'valueAndName',
     colorMode: 'value',
     calc: 'lastNotNull',
+    valueField: 'Value',
     textSize: {},
     legengPosition: 'right',
     detailName: '详情',
@@ -184,6 +160,7 @@ export const defaultCustomValuesMap = {
   hexbin: {
     textMode: 'valueAndName',
     calc: 'lastNotNull',
+    valueField: 'Value',
     colorRange: _.join(colors[0].value, ','),
     colorDomainAuto: true,
     colorDomain: [],
@@ -207,6 +184,16 @@ export const defaultCustomValuesMap = {
   gauge: {
     textMode: 'valueAndName',
     calc: 'lastNotNull',
+    valueField: 'Value',
+  },
+  heatmap: {
+    calc: 'lastNotNull',
+    valueField: 'Value',
+    scheme: 'Blues',
+  },
+  barchart: {
+    calc: 'lastNotNull',
+    valueField: 'Value',
   },
 };
 

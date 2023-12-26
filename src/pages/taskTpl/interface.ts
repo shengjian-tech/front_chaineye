@@ -31,5 +31,6 @@ export interface Tpl {
   create_at: number;
   update_by: string;
   update_at: number;
+  group_id: number;
   // grp: Group,
 }

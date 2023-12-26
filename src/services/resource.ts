@@ -16,9 +16,7 @@
  */
 import request from '@/utils/request';
 import { RequestMethod, IBasePagingParams } from '@/store/common';
-import { N9EAPI } from '../../config/constant';
 import { collectItem, collect_type, prefixType } from '@/store/businessInterface';
-import { PAGE_SIZE } from '@/utils/constant';
 
 // 新建资源分组
 export const addResourceGroup = function (params: { path: string; node: string }) {

@@ -20,16 +20,19 @@ import querystring from 'query-string';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Button, Space, Dropdown, Menu, Switch, notification, Select } from 'antd';
-import { RollbackOutlined } from '@ant-design/icons';
+import { RollbackOutlined, SettingOutlined } from '@ant-design/icons';
 import { useKeyPress } from 'ahooks';
 import { TimeRangePickerWithRefresh, IRawTimeRange } from '@/components/TimeRangePicker';
 import { CommonStateContext } from '@/App';
 import { AddPanelIcon } from '../config';
 import { visualizations } from '../Editor/config';
 import { dashboardTimeCacheKey } from './Detail';
+import FormModal from '../List/FormModal';
+import { IDashboard } from '../types';
+import { dashboardThemeModeCacheKey, getDefaultThemeMode } from './utils';
 
 interface IProps {
-  dashboard: any;
+  dashboard: IDashboard;
   range: IRawTimeRange;
   setRange: (range: IRawTimeRange) => void;
   onAddPanel: (type: string) => void;
@@ -48,7 +51,8 @@ export default function Title(props: IProps) {
   const location = useLocation();
   const { siteInfo } = useContext(CommonStateContext);
   const query = querystring.parse(location.search);
-  const { viewMode, themeMode } = query;
+  const { viewMode } = query;
+  const themeMode = getDefaultThemeMode(query);
 
   useEffect(() => {
     document.title = `${dashboard.name} - ${siteInfo?.page_title || cachePageTitle}`;
@@ -92,6 +96,7 @@ export default function Title(props: IProps) {
                       pathname: location.pathname,
                       search: querystring.stringify(newQuery),
                     });
+                    window.localStorage.setItem(dashboardThemeModeCacheKey, newQuery.themeMode);
                   }}
                 />
               </Space>
@@ -116,46 +121,52 @@ export default function Title(props: IProps) {
       </div>
       <div className='dashboard-detail-header-right'>
         <Space>
-          <div>
-            {isAuthorized && (
-              <Dropdown
-                trigger={['click']}
-                overlay={
-                  <Menu>
-                    {_.map([{ type: 'row', name: '分组' }, ...visualizations], (item) => {
-                      return (
-                        <Menu.Item
-                          key={item.type}
-                          onClick={() => {
-                            onAddPanel(item.type);
-                          }}
-                        >
-                          {i18n.language === 'en_US' ? item.type : item.name}
-                        </Menu.Item>
-                      );
-                    })}
-                  </Menu>
-                }
-              >
-                <Button type='primary' icon={<AddPanelIcon />}>
-                  {t('add_panel')}
-                </Button>
-              </Dropdown>
-            )}
-          </div>
-          <TimeRangePickerWithRefresh
-            localKey={dashboardTimeCacheKey}
-            dateFormat='YYYY-MM-DD HH:mm:ss'
-            // refreshTooltip={t('refresh_tip', { num: getStepByTimeAndStep(range, step) })}
-            value={range}
-            onChange={setRange}
-          />
+          {isAuthorized && (
+            <Dropdown
+              trigger={['click']}
+              overlay={
+                <Menu>
+                  {_.map([{ type: 'row', name: 'row' }, ...visualizations], (item) => {
+                    return (
+                      <Menu.Item
+                        key={item.type}
+                        onClick={() => {
+                          onAddPanel(item.type);
+                        }}
+                      >
+                        {t(`visualizations.${item.type}`)}
+                      </Menu.Item>
+                    );
+                  })}
+                </Menu>
+              }
+            >
+              <Button type='primary' icon={<AddPanelIcon />}>
+                {t('add_panel')}
+              </Button>
+            </Dropdown>
+          )}
+          {isAuthorized && (
+            <Button
+              icon={<SettingOutlined />}
+              onClick={() => {
+                FormModal({
+                  action: 'edit',
+                  initialValues: dashboard,
+                  onOk: () => {
+                    window.location.reload();
+                  },
+                });
+              }}
+            />
+          )}
+          <TimeRangePickerWithRefresh localKey={dashboardTimeCacheKey} dateFormat='YYYY-MM-DD HH:mm:ss' value={range} onChange={setRange} />
           <Button
             onClick={() => {
               const newQuery = _.omit(query, ['viewMode', 'themeMode']);
               if (!viewMode) {
                 newQuery.viewMode = 'fullscreen';
-                newQuery.themeMode = localStorage.getItem('dashboard_themeMode') || 'light';
+                newQuery.themeMode = localStorage.getItem(dashboardThemeModeCacheKey) || 'light';
               }
               history.replace({
                 pathname: location.pathname,
@@ -182,6 +193,7 @@ export default function Title(props: IProps) {
                 pathname: location.pathname,
                 search: querystring.stringify(newQuery),
               });
+              window.localStorage.setItem(dashboardThemeModeCacheKey, val);
             }}
           />
         </Space>

@@ -53,13 +53,16 @@ interface DataItem {
 
 interface IProps {
   time?: IRawTimeRange;
+  setRange?: (range: IRawTimeRange) => void;
   inDashboard?: boolean;
   chartHeight?: string;
   tableHeight?: string;
   values: IPanel;
   series: any[];
   themeMode?: 'dark';
+  hideResetBtn?: boolean;
   onClick?: (event: any, datetime: Date, value: number, points: any[]) => void;
+  onZoomWithoutDefult?: (times: Date[]) => void;
 }
 
 function getStartAndEndByTargets(targets: any[]) {
@@ -107,8 +110,8 @@ function NameWithTooltip({ record, children }) {
 export default function index(props: IProps) {
   const [dashboardMeta] = useGlobalState('dashboardMeta');
   const { t } = useTranslation('dashboard');
-  const { time, values, series, inDashboard = true, chartHeight = '200px', tableHeight = '200px', themeMode = '', onClick } = props;
-  const { custom, options = {}, targets } = values;
+  const { time, setRange, values, series, inDashboard = true, chartHeight = '200px', tableHeight = '200px', themeMode = '', onClick } = props;
+  const { custom, options = {}, targets, overrides } = values;
   const { lineWidth = 1, gradientMode = 'none', scaleDistribution } = custom;
   const [seriesData, setSeriesData] = useState(series);
   const [activeLegend, setActiveLegend] = useState('');
@@ -226,7 +229,20 @@ export default function index(props: IProps) {
           ...chartRef.current.options.tooltip,
           shared: options.tooltip?.mode === 'all',
           sharedSortDirection: options.tooltip?.sort !== 'none' ? options.tooltip?.sort : undefined,
-          pointValueformatter: (val) => {
+          cascade: _.includes(['sharedCrosshair', 'sharedTooltip'], dashboardMeta.graphTooltip),
+          cascadeScope: 'cascadeScope',
+          cascadeMode: _.includes(['sharedCrosshair', 'sharedTooltip'], dashboardMeta.graphTooltip) ? dashboardMeta.graphTooltip : undefined,
+          pointValueformatter: (val, nearestPoint) => {
+            if (overrides?.[0]?.matcher?.value && overrides?.[0]?.matcher?.value === nearestPoint?.serieOptions?.refId) {
+              return valueFormatter(
+                {
+                  unit: overrides?.[0]?.properties?.standardOptions?.util,
+                  decimals: overrides?.[0]?.properties?.standardOptions?.decimals,
+                  dateFormat: overrides?.[0]?.properties?.standardOptions?.dateFormat,
+                },
+                val,
+              ).text;
+            }
             return valueFormatter(
               {
                 unit: options?.standardOptions?.util,
@@ -273,9 +289,40 @@ export default function index(props: IProps) {
             ).text;
           },
         },
+        yAxis2: {
+          ...chartRef.current.options.yAxis,
+          visible: overrides?.[0]?.properties?.rightYAxisDisplay === 'noraml',
+          matchRefId: overrides?.[0]?.matcher?.value,
+          min: overrides?.[0]?.properties?.standardOptions?.min,
+          max: overrides?.[0]?.properties?.standardOptions?.max,
+          backgroundColor: themeMode === 'dark' ? '#2A2D3C' : '#fff',
+          tickValueFormatter: (val) => {
+            return valueFormatter(
+              {
+                unit: overrides?.[0]?.properties?.standardOptions?.util,
+                decimals: overrides?.[0]?.properties?.standardOptions?.decimals,
+                dateFormat: overrides?.[0]?.properties?.standardOptions?.dateFormat,
+              },
+              val,
+            ).text;
+          },
+        },
         onClick: (event, datetime, value, points) => {
           if (onClick) onClick(event, datetime, value, points);
         },
+        hideResetBtn: props.hideResetBtn || dashboardMeta.graphZoom === 'updateTimeRange',
+        onZoomWithoutDefult: props.onZoomWithoutDefult
+          ? props.onZoomWithoutDefult
+          : dashboardMeta.graphZoom === 'updateTimeRange'
+          ? (times: Date[]) => {
+              if (setRange) {
+                setRange({
+                  start: moment(times[0]),
+                  end: moment(times[1]),
+                });
+              }
+            }
+          : undefined,
       });
     }
     if (hasLegend) {
@@ -294,7 +341,7 @@ export default function index(props: IProps) {
     } else {
       setLegendData([]);
     }
-  }, [JSON.stringify(seriesData), JSON.stringify(custom), JSON.stringify(options), themeMode]);
+  }, [JSON.stringify(seriesData), JSON.stringify(custom), JSON.stringify(options), themeMode, JSON.stringify(overrides)]);
 
   useEffect(() => {
     // TODO: 这里布局变化了，但是 fc-plot 没有自动 resize，所以这里需要手动 resize
@@ -396,9 +443,6 @@ export default function index(props: IProps) {
               className='scroll-container-table'
               columns={tableColumn}
               dataSource={legendData}
-              locale={{
-                emptyText: '暂无数据',
-              }}
               pagination={false}
               rowClassName={(record) => {
                 return record.disabled ? 'disabled' : '';

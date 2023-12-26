@@ -31,12 +31,12 @@ export default function GraphStyles() {
       <>
         <Row gutter={10}>
           <Col span={12}>
-            <Form.Item label={t('panel.custom.calc')} name={[...namePrefix, 'calc']}>
+            <Form.Item label={t('panel.custom.calc')} name={[...namePrefix, 'calc']} tooltip={t('panel.custom.calc_tip')}>
               <Select>
                 {_.map(calcsOptions, (item, key) => {
                   return (
                     <Select.Option key={key} value={key}>
-                      {i18n.language === 'en_US' ? key : item.name}
+                      {t(`calcs.${key}`)}
                     </Select.Option>
                   );
                 })}

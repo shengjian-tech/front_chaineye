@@ -37,6 +37,7 @@ const zh_CN = {
     import_grafana_tip_version_error: '不支持导入小于 v7 版本的仪表盘配置',
     import_grafana_tip_version_warning: '导入小于 v8 版本的仪表盘配置，可能会有部分图表不支持，以及图表无法正常渲染问题',
     continueToImport: '继续导入',
+    noSelected: '请选择仪表盘',
   },
   link: {
     title: '仪表盘链接',
@@ -78,6 +79,8 @@ const zh_CN = {
     type: '变量类型',
     hide: '隐藏变量',
     definition: '变量定义',
+    definition_msg1: '请输入变量定义',
+    definition_msg2: '变量定义必须是合法的JSON',
     reg: '正则',
     reg_tip: '可选，可通过正则来过滤可选项，或提取值',
     multi: '多选',
@@ -222,6 +225,7 @@ const zh_CN = {
     custom: {
       title: '图表样式',
       calc: '取值计算',
+      calc_tip: '时序数据需要对所有时间点数据做取值计算，非时序数据忽略此设置',
       maxValue: '最大值',
       baseColor: '基础颜色',
       serieWidth: '序列名宽度',
@@ -233,6 +237,8 @@ const zh_CN = {
       background: '背景',
       colorMode: '颜色模式',
       valueField: '值字段',
+      valueField_tip: 'Value 是保留关键字，作为时序数据取值计算后的字段名',
+      valueField_tip2: '需选择值为数值类型的字段',
       colSpan: '每行最多显示',
       textSize: {
         title: '标题字体大小',
@@ -245,6 +251,11 @@ const zh_CN = {
       fontBackground: '文字背景色', // hexbin
       detailName: '链接名称',
       detailUrl: '链接地址',
+      stat: {
+        graphMode: '图表模式',
+        none: '不显示',
+        area: '迷你图',
+      },
       pie: {
         legengPosition: '图例位置', // pie
         max: '最多展示块数',
@@ -311,6 +322,14 @@ const zh_CN = {
         stack: '堆叠',
         stack_noraml: '开启',
         stack_off: '关闭',
+        yAxis: {
+          title: 'Y轴设置',
+          rightYAxis: {
+            label: '右侧Y轴显示',
+            noraml: '开启',
+            off: '关闭',
+          },
+        },
       },
       iframe: {
         src: 'iframe 地址',
@@ -319,6 +338,12 @@ const zh_CN = {
         xAxisField: 'X轴',
         yAxisField: 'Y轴',
         valueField: '数值列',
+      },
+      barchart: {
+        xAxisField: 'X轴',
+        yAxisField: 'Y轴',
+        colorField: '颜色字段',
+        barMaxWidth: '条形最大宽度',
       },
     },
     inspect: {
@@ -348,6 +373,46 @@ const zh_CN = {
         theme: '主题切换',
       },
     },
+  },
+  settings: {
+    graphTooltip: {
+      label: '提示信息 (Tooltip)',
+      tip: '控制所有图表的提示信息 (Tooltip) 行为',
+      default: '默认',
+      sharedCrosshair: '共享十字线',
+      sharedTooltip: '共享提示信息 (Tooltip)',
+    },
+    graphZoom: {
+      label: '缩放行为',
+      tip: '控制所有图表的缩放行为',
+      default: '默认',
+      updateTimeRange: '更新时间范围',
+    },
+  },
+  visualizations: {
+    timeseries: '时序图',
+    barchart: '柱状图',
+    stat: '指标值',
+    table: '表格',
+    pie: '饼图',
+    hexbin: '蜂窝图',
+    barGauge: '排行榜',
+    text: '文本卡片',
+    gauge: '仪表图',
+    heatmap: '色块图',
+    iframe: '内嵌文档(iframe)',
+    row: '分组',
+  },
+  calcs: {
+    lastNotNull: '最后一个非空值',
+    last: '最后一个值',
+    firstNotNull: '第一个非空值',
+    first: '第一个值',
+    min: '最小值',
+    max: '最大值',
+    avg: '平均值',
+    sum: '总和',
+    count: '数量',
   },
 };
 export default zh_CN;

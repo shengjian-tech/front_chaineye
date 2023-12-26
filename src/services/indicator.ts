@@ -16,7 +16,6 @@
  */
 import request from '@/utils/request';
 import { RequestMethod } from '@/store/common';
-import { N9EAPI } from '../../config/constant';
 
 export const getIndicatorList = function (data: object) {
   return request(`/api/n9e/metric-descriptions`, {
